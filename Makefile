@@ -1,6 +1,6 @@
 EXENAME = main
 TEST = test
-OBJS = PNG.o HSLAPixel.o lodepng.o main.o
+OBJS = PNG.o HSLAPixel.o lodepng.o main.o graph.o
 
 
 CXX = clang++
@@ -34,7 +34,7 @@ output_msg: ; $(CLANG_VERSION_MSG)
 $(EXENAME) : output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-main.o : main.cpp cs225/PNG.h cs225/HSLAPixel.h
+main.o : main.cpp cs225/PNG.h cs225/HSLAPixel.h graph.h
 	$(CXX) $(CXXFLAGS) main.cpp
 
 PNG.o : cs225/PNG.cpp cs225/PNG.h cs225/HSLAPixel.h cs225/lodepng/lodepng.h
@@ -45,6 +45,9 @@ HSLAPixel.o : cs225/HSLAPixel.cpp cs225/HSLAPixel.h
 
 lodepng.o : cs225/lodepng/lodepng.cpp cs225/lodepng/lodepng.h
 	$(CXX) $(CXXFLAGS) cs225/lodepng/lodepng.cpp
+
+graph.o : graph.cpp graph.h edge.h random.h
+	$(CXX) $(CXXFLAGS) graph.cpp
 
 $(TEST): output_msg part1.o PNG.o HSLAPixel.o lodepng.o
 	$(LD) part1.o PNG.o HSLAPixel.o lodepng.o $(LDFLAGS) -o test
