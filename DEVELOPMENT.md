@@ -13,10 +13,10 @@
 - [ ] Added Comments 
 ---
 #### WEEK 3
-- [ ] Added assets for a moving character
-- [ ] Created the first maze on paint
-- [ ] Made the maze on a txt file
-- [ ] Implemented code for the character to appear to be moving 
+- [ ] Implemented code to -----
+- [ ] Implemented code to -----
+- [ ] Add tests for -----
+- [ ] Add tests for -----
 ---
 #### WEEK 4
 - [ ] Implemented code to -----
