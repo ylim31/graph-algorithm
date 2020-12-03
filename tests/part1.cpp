@@ -1,11 +1,17 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+
 #include "../cs225/PNG.h"
 #include "../cs225/HSLAPixel.h"
 #include "../dijkstra.h"
 #include <vector>
 #include <iostream>
+
+using namespace std;
+
+#include <iostream>
+#include <string>
 
 using namespace std;
 

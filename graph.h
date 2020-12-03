@@ -57,6 +57,7 @@ using std::unordered_map;
 class Graph
 {
 public:
+    Graph();
     /**
      * Constructor to create an empty graph.
      * @param weighted - specifies whether the graph is a weighted graph or
@@ -228,6 +229,9 @@ public:
 
     void clear();
 
+    //returns the number of nodes
+    int getSize();
+
 
     const static Vertex InvalidVertex;
     const static Edge InvalidEdge;
@@ -242,6 +246,7 @@ private:
     Random random;
     int picNum;
     string picName;
+    int number_of_nodes;
 
 
     /**

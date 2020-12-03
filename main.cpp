@@ -9,18 +9,21 @@ int main(){
     Graph g_(true, false);
 
     ifstream lastfm_file;
-    lastfm_file.open("lastfm_node.csv");
+    //lastfm_file.open("lastfm_node.csv");
     ifstream lastfm_neighbor_file;
-    lastfm_neighbor_file.open("lastfm_neighbor.csv");
-    //lastfm_neighbor_file.open("testss.csv");
-    //lastfm_file.open("test.csv");
-    //lastfm_neighbor_file.open("test_neighbor.csv");
+    //lastfm_neighbor_file.open("lastfm_neighbor.csv");
+    //adjacencent list
+  
+    lastfm_file.open("test.csv");
+    lastfm_neighbor_file.open("test_neighbor.csv");
 
     while (lastfm_file.good()) {
         string node_label;
         getline(lastfm_file, node_label, ',');
         //std::cout << "Node" << node_label << std::endl;
         g_.insertVertex(node_label);
+
+        
     }
     lastfm_file.close();
     size_t i = 0;
@@ -32,7 +35,7 @@ int main(){
 
         
         getline(lastfm_neighbor_file, node_neighbor, ']');
-        char node_neighbor_char[node_neighbor.size() + 1];
+        char node_neighbor_char[node_neighbor.size()];
         strcpy(node_neighbor_char, node_neighbor.c_str());
         
         char* piece = strtok(node_neighbor_char, " , \" \t []");
@@ -75,7 +78,8 @@ int main(){
     for (unsigned i = 0; i < ex4.size(); i++) {
         //std::cout << "NODEs 4: " << ex4[i] << std::endl;
     }
-    
+    g_.print();
+
     
 
     

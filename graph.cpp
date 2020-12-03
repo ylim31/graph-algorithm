@@ -7,10 +7,12 @@ const Edge Graph::InvalidEdge = Edge(Graph::InvalidVertex, Graph::InvalidVertex,
 
 Graph::Graph(bool weighted) : weighted(weighted),directed(false),random(Random(0))
 {
+    number_of_nodes = 0;
 }
 
 Graph::Graph(bool weighted, bool directed) : weighted(weighted),directed(directed),random(Random(0))
 {
+    number_of_nodes = 0;
 }
 
 
@@ -139,6 +141,11 @@ void Graph::insertVertex(Vertex v)
     removeVertex(v);
     // make it empty again
     adjacency_list[v] = unordered_map<Vertex, Edge>();
+    number_of_nodes++;
+}
+
+int Graph::getSize() {
+    return number_of_nodes;
 }
 
 
@@ -146,7 +153,8 @@ Vertex Graph::removeVertex(Vertex v)
 {
 
     if (adjacency_list.find(v) != adjacency_list.end())
-    {
+    {   
+        number_of_nodes--;
         if(!directed){
             for (auto it = adjacency_list[v].begin(); it != adjacency_list[v].end(); it++)
             {
@@ -360,9 +368,11 @@ void Graph::savePNG(string title) const
 
     vector<Vertex> allv = getVertices();
     //lambda expression
+    
     sort(allv.begin(), allv.end(), [](const Vertex& lhs, const Vertex& rhs) {
         return stoi(lhs.substr(3)) > stoi(rhs.substr(3));
     });
+    
 
     int xpos1 = 100;
     int xpos2 = 100;
