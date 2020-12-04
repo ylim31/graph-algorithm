@@ -58,6 +58,7 @@ class Graph
 {
 public:
     Graph();
+
     /**
      * Constructor to create an empty graph.
      * @param weighted - specifies whether the graph is a weighted graph or
@@ -102,7 +103,6 @@ public:
      */
     vector<Vertex> getVertices() const;
     
-
     /**
      * Gets an edge between two vertices.
      * @param source - one vertex the edge is connected to
@@ -132,14 +132,14 @@ public:
      */
     bool edgeExists(Vertex source, Vertex destination) const;
 
-        /**
+    /**
      * Sets the edge label of the edge between vertices u and v.
      * @param source - one vertex the edge is connected to
      * @param destination - the other vertex the edge is connected to
      * @return - if edge exists, set the label to the corresponding edge(if not directed, set the reverse one too), return edge with new label
      *         - if edge doesn't exist, return InvalidEdge
      */
-        Edge setEdgeLabel(Vertex source, Vertex destination, string label);
+    Edge setEdgeLabel(Vertex source, Vertex destination, string label);
 
     /**
      * Gets the edge label of the edge between vertices u and v.
