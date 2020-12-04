@@ -14,8 +14,8 @@
 ---
 #### WEEK 3
 - [ ] Implemented code for BFS 
-- [ ] Implemented code for Dijkstra
-- [ ] Add tests for Dijkstra
+- [x] Implemented code for Dijkstra
+- [x] Add tests for Dijkstra
 - [ ] Add tests for BFS
 ---
 #### WEEK 4
