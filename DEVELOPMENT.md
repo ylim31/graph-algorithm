@@ -13,7 +13,7 @@
 - [ ] Added Comments 
 ---
 #### WEEK 3
-- [] Implemented code for BFS traversal
+- [x] Implemented code for BFS traversal
 - [ ] Implemented code for Dijkstra
 - [ ] Add tests for Dijkstra
 - [ ] Add tests for BFS
