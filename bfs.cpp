@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <string>
+#include <queue>
 #include <string.h>
 #include <iostream>
 #include <fstream>
@@ -22,6 +23,7 @@ while (lastfm_file.good()) {
     string node_label;
     getline(lastfm_file, node_label, ',');
     g_.insertVertex(node_label); 
+    is_visited_[node_label] = false;
 }
 
 lastfm_file.close();
@@ -37,46 +39,34 @@ while (lastfm_neighbor_file.good()) {
         char* piece = strtok(node_neighbor_char, " , \" \t []");
 
         while (piece != NULL) { 
-
             g_.insertEdge(to_string(i), piece);
             piece = strtok(NULL, ", \" []");      
+            is_visited_[piece] = false;
         }
-        i++;
+        i++;  
     }
 
 lastfm_neighbor_file.close();
 }
 
 void BFS::traversal(Vertex start) {
-    unordered_map<Vertex, bool> is_visited_;
+    queue<Vertex> q;
+    
+    is_visited_[start] = true;
+    q.push(start);
 
-    /**
-    bool *visited = new bool[V]; 
-    for(int i = 0; i < V; i++) 
-        visited[i] = false; 
-  
-    list<int> queue; 
-  
-    visited[s] = true; 
-    queue.push_back(s); 
+    while(!q.empty()) {
+        start = q.front();
+        cout<< start << " ";
+        q.pop();
 
-    list<int>::iterator i; 
-  
-    while(!queue.empty()) 
-    {  
-        s = queue.front(); 
-        cout << s << " "; 
-        queue.pop_front(); 
-  
-        for (i = adj[s].begin(); i != adj[s].end(); ++i) 
-        { 
-            if (!visited[*i]) 
-            { 
-                visited[*i] = true; 
-                queue.push_back(*i); 
-            } 
-        } 
-    } **/
-
+        vector<Vertex> its_neighbor = g_.getAdjacent(start);
+        for(int i = 0; i < its_neighbor.size(); i++) {
+            if (!is_visited_[its_neighbor[i]]) {
+                is_visited_[its_neighbor[i]] = true;
+                q.push(its_neighbor[i]);
+            }
+        }
+    }
 }
 
