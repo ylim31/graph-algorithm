@@ -5,6 +5,9 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
+#include <chrono>
+#include <algorithm>
+#include <random>
 #include "graph.h"
 
 
@@ -42,6 +45,7 @@ Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, fa
         
     }
     lastfm_file.close();
+    /*
     for (int i = 0; i <= 7830; i++) {
         auto lookup = is_visited_.find(to_string(i));
         if (lookup == is_visited_.end()) {
@@ -50,6 +54,7 @@ Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, fa
             prev_vertex_[to_string(i)] = EMPTY_VERTEX;
         }  
     }
+    */
     size_t i = 0;
     
     while (lastfm_neighbor_file.good()) {
@@ -88,17 +93,21 @@ Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, fa
 }
 
 vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
-    
+    if (start == end) {
+        return vector<Vertex>();
+    }
     shortest_distance_from_start_[start] = 0;
     bool should_break = false;
     Vertex current_vertex = start;
     int j = 0;
     while (should_break == false) {
-        
+        j++;
         vector<Vertex> its_neighbor = g_.getAdjacent(current_vertex);
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        shuffle(its_neighbor.begin(), its_neighbor.end(), std::default_random_engine(seed));
         for (unsigned i = 0; i < its_neighbor.size(); i++) {
-            cout << j << endl;
-            j++;
+            //cout << j << endl;
+            
             
             if (is_visited_[its_neighbor[i]] == false) {
                 
@@ -117,10 +126,15 @@ vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
             }
         }
  
-        j = 0;        
         is_visited_[current_vertex] = true;
         Vertex shortest_vertex = get_shortest_distance(its_neighbor);
-        //cout << "WORK" << endl;
+        if (shortest_vertex == start) {
+            return vector<Vertex>();
+        }
+        if (j < 50) {
+            cout << "SHORTEST V: " << shortest_vertex << endl;
+        }
+        
         current_vertex = shortest_vertex;
     }
     //cout << "WORK" << endl;
@@ -159,8 +173,8 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
 }
 
 Vertex Dijkstra::get_shortest_distance(vector<Vertex> neighbor) {
-    Vertex min_vertex;
-    int min_dist;
+    Vertex min_vertex = neighbor[0];
+    int min_dist = shortest_distance_from_start_[neighbor[0]];
     for (unsigned i = 0; i < neighbor.size(); i++) {
         if (is_visited_[neighbor[i]] == false) {
             min_vertex = neighbor[i];
