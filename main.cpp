@@ -13,17 +13,15 @@ int main(){
     ifstream lastfm_neighbor_file;
     //lastfm_neighbor_file.open("lastfm_neighbor.csv");
     //adjacencent list
-  
-    lastfm_file.open("bfs_baby_test_node.csv");
-    lastfm_neighbor_file.open("bfs_baby_test_neighbor.csv");
+
+    lastfm_file.open("BFS-csv/bfs_baby_test_node.csv");
+    lastfm_neighbor_file.open("BFS-csv/bfs_baby_test_neighbor.csv");
 
     while (lastfm_file.good()) {
         string node_label;
         getline(lastfm_file, node_label, ',');
         //std::cout << "Node" << node_label << std::endl;
-        g_.insertVertex(node_label);
-
-        
+        g_.insertVertex(node_label); 
     }
     lastfm_file.close();
     size_t i = 0;
@@ -32,7 +30,6 @@ int main(){
         
         string each;
         string node_neighbor;
-
         
         getline(lastfm_neighbor_file, node_neighbor, ']');
         char node_neighbor_char[node_neighbor.size()];

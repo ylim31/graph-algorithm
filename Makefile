@@ -69,7 +69,7 @@ part1.o : tests/part1.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h graph.h 
 part2.o : tests/part2.cpp tests/catch.hpp graph.h landmark.h 
 	$(CXX) $(CXXFLAGS) tests/part2.cpp
 
-bfs_test.o: tests/bfs_test.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h graph.h bfs.h
+bfs_test.o: tests/bfs_test.cpp cs225/PNG.h cs225/HSLAPixel.h graph.h bfs.h
 	$(CXX) $(CXXFLAGS) tests/bfs_test.cpp
 
 clean :
