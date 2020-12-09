@@ -8,55 +8,56 @@
 #include <chrono>
 #include <algorithm>
 #include <random>
+#include <cmath>
 #include "graph.h"
 
 
 using namespace std;
 
 const int Dijkstra::INF = 9999;
-const int Dijkstra::EMPTY_VERTEX = -1;
+const Vertex Dijkstra::EMPTY_VERTEX = to_string(-1);
 Dijkstra::Dijkstra() : g_(true, false) {}
 Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, false) {
-
+    vector<Vertex> vertex_list;
 
     ifstream lastfm_file;
-    //lastfm_file.open("lastfm_node.csv");
     ifstream lastfm_neighbor_file;
-    //lastfm_neighbor_file.open("lastfm_neighbor.csv");
-    //adjacencent list
+    ifstream lastfm_target_file;
   
-    //lastfm_file.open("test.csv");
-    //lastfm_neighbor_file.open("test_neighbor.csv");
 
     lastfm_file.open(node_filename);
     lastfm_neighbor_file.open(neighbor_filename);
 
+    lastfm_target_file.open("lastfm_asia_target.csv");
+
+    while (lastfm_target_file.good()) {
+        string line;
+        getline(lastfm_target_file, line);
+        pair<Vertex, int> target = parse(line);
+        target_map_.insert(target);
+        
+    }
+    lastfm_target_file.close();
+    
+    
     while (lastfm_file.good()) {
         string node_label;
         getline(lastfm_file, node_label, ',');
         g_.insertVertex(node_label);
-
+        vertex_list.push_back(node_label);
         auto lookup = is_visited_.find(node_label);
         if (lookup == is_visited_.end()) {
             is_visited_[node_label] = false;
             shortest_distance_from_start_[node_label] = INF;
             prev_vertex_[node_label] = EMPTY_VERTEX;
+            is_marked[node_label] = false;
         }  
+        
         
     }
     lastfm_file.close();
-    /*
-    for (int i = 0; i <= 7830; i++) {
-        auto lookup = is_visited_.find(to_string(i));
-        if (lookup == is_visited_.end()) {
-            is_visited_[to_string(i)] = false;
-            shortest_distance_from_start_[to_string(i)] = INF;
-            prev_vertex_[to_string(i)] = EMPTY_VERTEX;
-        }  
-    }
-    */
+
     size_t i = 0;
-    
     while (lastfm_neighbor_file.good()) {
         string each;
         string node_neighbor;
@@ -72,24 +73,28 @@ Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, fa
                 is_visited_[piece] = false;
                 shortest_distance_from_start_[piece] = INF;
                 prev_vertex_[piece] = EMPTY_VERTEX;
+                is_marked[piece] = false;
             }  
-
             g_.insertEdge(to_string(i), piece);
             g_.setEdgeWeight(to_string(i), piece, 1);
+            //g_.insertEdge(vertex_list[i], piece);
+            //g_.setEdgeWeight(vertex_list[i], piece, 1);
             piece = strtok(NULL, ", \" []");      
         }
         i++;
     }
     lastfm_neighbor_file.close();
-    /*
-    g_.setEdgeWeight(to_string(0), to_string(1), 6);
-    g_.setEdgeWeight(to_string(0), to_string(3), 1);
-    g_.setEdgeWeight(to_string(1), to_string(3), 2);
-    g_.setEdgeWeight(to_string(1), to_string(4), 2);
-    g_.setEdgeWeight(to_string(1), to_string(2), 5);
-    g_.setEdgeWeight(to_string(2), to_string(4), 5);
-    g_.setEdgeWeight(to_string(4), to_string(3), 1);
-    */
+    
+   /*
+   g_.setEdgeWeight(to_string(0), to_string(1), 2);
+   g_.setEdgeWeight(to_string(0), to_string(2), 3);
+   g_.setEdgeWeight(to_string(1), to_string(3), 16);
+   g_.setEdgeWeight(to_string(3), to_string(5), 3);
+   g_.setEdgeWeight(to_string(2), to_string(4), 2);
+   g_.setEdgeWeight(to_string(4), to_string(5), 4);
+   */
+   
+   
 }
 
 vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
@@ -97,47 +102,40 @@ vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
         return vector<Vertex>();
     }
     shortest_distance_from_start_[start] = 0;
-    bool should_break = false;
     Vertex current_vertex = start;
-    int j = 0;
-    while (should_break == false) {
-        j++;
+    bool is_first = true;
+    q2.push(make_pair(0, start));
+    while (!q2.empty()) {
+       
         vector<Vertex> its_neighbor = g_.getAdjacent(current_vertex);
-        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        shuffle(its_neighbor.begin(), its_neighbor.end(), std::default_random_engine(seed));
         for (unsigned i = 0; i < its_neighbor.size(); i++) {
-            //cout << j << endl;
-            
-            
             if (is_visited_[its_neighbor[i]] == false) {
-                
                 int distance = shortest_distance_from_start_[current_vertex] + g_.getEdgeWeight(current_vertex, its_neighbor[i]);
-                
                 if (distance < shortest_distance_from_start_[its_neighbor[i]]) {
                     shortest_distance_from_start_[its_neighbor[i]] = distance;
-                    
                     prev_vertex_[its_neighbor[i]] = current_vertex;
-                    if (its_neighbor[i] == end) {
-                        
-                        should_break = true;
-                        break;
-                    }
                 }
             }
         }
- 
+
         is_visited_[current_vertex] = true;
-        Vertex shortest_vertex = get_shortest_distance(its_neighbor);
-        if (shortest_vertex == start) {
-            return vector<Vertex>();
+        is_marked[current_vertex] = true;
+        for (unsigned i = 0; i < its_neighbor.size(); i++) {
+            if (is_marked[its_neighbor[i]] == false) {
+                q2.push(make_pair(shortest_distance_from_start_[its_neighbor[i]], its_neighbor[i]));
+            }
+            is_marked[its_neighbor[i]] = true;
         }
-        if (j < 50) {
-            cout << "SHORTEST V: " << shortest_vertex << endl;
+        if (is_first) {
+            q2.pop();
+            is_first = false;
         }
-        
+        pair_ pair = q2.top();
+        q2.pop();
+ 
+        Vertex shortest_vertex = pair.second;
         current_vertex = shortest_vertex;
     }
-    //cout << "WORK" << endl;
     return backtrack(prev_vertex_, start, end);
 }
 
@@ -147,22 +145,21 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
     shortest_path.push_back(end);
     Vertex curr = end;
     
+    Vertex lookup = prev_vertex_[end];
+    if (lookup == EMPTY_VERTEX) {
+        return vector<Vertex>(); 
+    }
 
     unordered_map<Vertex, Vertex>::iterator it;
     for ( it = prev_vertex_.begin(); it != prev_vertex_.end(); it++ )
-    {
+    {   
         std::cout << it->first  // string (key)
                 << ':'
                 << it->second   // string's value 
                 << std::endl ;
+                
     }
-    cout << "start: " << start << endl;
-    cout << "end: " << end << endl;
-    cout << "prev_vertex[322]: " << prev_vertex_[to_string(322)] << endl;
-    cout << "prev_vertex[7830]: " << prev_vertex_[to_string(7830)] << endl;
-
     while (curr != start) {
-        
         curr = prev_vertex_[curr];
         shortest_path.push_back(curr);
 
@@ -172,25 +169,12 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
 
 }
 
-Vertex Dijkstra::get_shortest_distance(vector<Vertex> neighbor) {
-    Vertex min_vertex = neighbor[0];
-    int min_dist = shortest_distance_from_start_[neighbor[0]];
-    for (unsigned i = 0; i < neighbor.size(); i++) {
-        if (is_visited_[neighbor[i]] == false) {
-            min_vertex = neighbor[i];
-            min_dist = shortest_distance_from_start_[neighbor[i]];
-            break;
-        }
-    }
-    
-    for (unsigned i = 0; i < neighbor.size(); i++) {
-        if (is_visited_[neighbor[i]] == false) {
-            if (min_dist > shortest_distance_from_start_[neighbor[i]]) {
-            min_dist = shortest_distance_from_start_[neighbor[i]];
-            min_vertex = neighbor[i];
-            }
-        }
-    }
-    return min_vertex;
-}
 
+pair<Vertex, int> Dijkstra::parse(string input) {
+    string delimiter = ",";
+    pair<Vertex, int> value;
+    value.first = input.substr(0, input.find(delimiter));
+    //value.second = stoi(input.substr(input.find(delimiter)));
+    return value;
+
+}
