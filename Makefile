@@ -60,8 +60,8 @@ landmark.o : landmark.cpp landmark.h graph.h edge.h
 
 
 
-$(TEST): part1.o part2.o output_msg PNG.o HSLAPixel.o lodepng.o graph.o dijkstra.o bfs_test.o bfs.o
-	$(LD) part1.o part2.o PNG.o HSLAPixel.o lodepng.o graph.o dijkstra.o bfs_test.o bfs.o $(LDFLAGS) -o test
+$(TEST): part1.o part2.o dijkstra.o output_msg PNG.o HSLAPixel.o lodepng.o graph.o bfs_test.o bfs.o
+	$(LD) part1.o part2.o dijkstra.o PNG.o HSLAPixel.o lodepng.o graph.o bfs_test.o bfs.o $(LDFLAGS) -o test
 
 part1.o : tests/part1.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h graph.h dijkstra.h
 	$(CXX) $(CXXFLAGS) tests/part1.cpp

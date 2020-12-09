@@ -13,13 +13,13 @@ using namespace std;
 
 TEST_CASE(" Test 1 ", "[weight=1]") {
   BFS test("bfs_baby_test_node.csv", "bfs_baby_test_neighbor.csv");
-  Vertex start = to_string(0);
-  //Vertex end = to_string(3);
-  //BFS g(4);
+  Vertex start = to_string(2);
   vector<Vertex> result = test.traversal(start);
-  for (unsigned i = 0; i < result.size(); i++) {
+
+  /**for (unsigned i = 0; i < result.size(); i++) {
     cout << result[i] << endl;
-  }
+  } **/
+  
   vector<Vertex> expected;
   expected.push_back(Vertex("2"));
   expected.push_back(Vertex("0"));
