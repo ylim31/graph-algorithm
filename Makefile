@@ -52,6 +52,9 @@ graph.o : graph.cpp graph.h edge.h random.h
 dijkstra.o : dijkstra.cpp dijkstra.h graph.h edge.h heap.h
 	$(CXX) $(CXXFLAGS) dijkstra.cpp
 
+bfs.o : bfs.cpp bfs.h graph.h edge.h heap.h
+	$(CXX) $(CXXFLAGS) dijkstra.cpp
+
 landmark.o : landmark.cpp landmark.h graph.h edge.h
 	$(CXX) $(CXXFLAGS) landmark.cpp
 

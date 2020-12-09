@@ -11,7 +11,7 @@ class BFS {
     public:
         BFS();
         BFS(string node_filename, string neighbor_filename);
-        void traversal(Vertex start);
+        vector<Vertex> traversal(Vertex start);
     private:
         unordered_map<Vertex, bool> is_visited_;
         int numVertices_;

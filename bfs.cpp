@@ -49,15 +49,17 @@ while (lastfm_neighbor_file.good()) {
 lastfm_neighbor_file.close();
 }
 
-void BFS::traversal(Vertex start) {
+vector<Vertex> BFS::traversal(Vertex start) {
     queue<Vertex> q;
+    vector<Vertex> ret;
     
     is_visited_[start] = true;
     q.push(start);
 
     while(!q.empty()) {
         start = q.front();
-        cout<< start << " ";
+        //cout<< start << " ";
+        ret.push_back(start);
         q.pop();
 
         vector<Vertex> its_neighbor = g_.getAdjacent(start);
@@ -68,5 +70,6 @@ void BFS::traversal(Vertex start) {
             }
         }
     }
+    return ret;
 }
 
