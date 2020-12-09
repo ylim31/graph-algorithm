@@ -10,14 +10,58 @@
 #include <random>
 #include <cmath>
 #include "graph.h"
+#include "include/json.hpp"
 
 
 using namespace std;
+using json = nlohmann::json;
 
 const int Dijkstra::INF = 9999;
 const Vertex Dijkstra::EMPTY_VERTEX = to_string(-1);
 Dijkstra::Dijkstra() : g_(true, false) {}
 Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, false) {
+    
+    ifstream json_("lastfm_asia_features.json");
+    json j = json::parse(json_);
+    int i = 0;
+    for (auto &it : j.items()) {
+        if (i == 0) {
+            cout << it.key() << ": " << it.value() << endl;
+        }
+            
+        //cout << i << endl;
+        i++;
+        g_.insertVertex(it.key());
+        
+        for (auto &itr : it.value().items()) {
+            //cout << "AHHHHHH" << endl;
+            g_.insertEdge(it.key(), to_string(itr.value()));
+            //cout << "AHHHHHH" << endl;
+            g_.setEdgeWeight(it.key(), to_string(itr.value()), 1);
+            //cout << itr.value() << endl;
+            auto lookup = is_visited_.find(to_string(itr.value()));
+            if (lookup == is_visited_.end()) {
+                is_visited_[to_string(itr.value())] = false;
+                shortest_distance_from_start_[to_string(itr.value())] = INF;
+                prev_vertex_[to_string(itr.value())] = EMPTY_VERTEX;
+                is_marked[to_string(itr.value())] = false;
+            }  
+        }
+
+        auto lookup = is_visited_.find(it.key());
+        if (lookup == is_visited_.end()) {
+            is_visited_[it.key()] = false;
+            shortest_distance_from_start_[it.key()] = INF;
+            prev_vertex_[it.key()] = EMPTY_VERTEX;
+            is_marked[it.key()] = false;
+        }  
+        
+
+    }
+    cout << "AHHHHHH" << endl;
+    cout << "AHHHHHH" << endl;
+    cout << "AHHHHHH" << endl;
+    /*
     vector<Vertex> vertex_list;
 
     ifstream lastfm_file;
@@ -85,14 +129,15 @@ Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, fa
     }
     lastfm_neighbor_file.close();
     
-   /*
+   
    g_.setEdgeWeight(to_string(0), to_string(1), 2);
    g_.setEdgeWeight(to_string(0), to_string(2), 3);
    g_.setEdgeWeight(to_string(1), to_string(3), 16);
    g_.setEdgeWeight(to_string(3), to_string(5), 3);
    g_.setEdgeWeight(to_string(2), to_string(4), 2);
    g_.setEdgeWeight(to_string(4), to_string(5), 4);
-   */
+   
+  */
    
    
 }
@@ -149,7 +194,7 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
     if (lookup == EMPTY_VERTEX) {
         return vector<Vertex>(); 
     }
-
+    /*
     unordered_map<Vertex, Vertex>::iterator it;
     for ( it = prev_vertex_.begin(); it != prev_vertex_.end(); it++ )
     {   
@@ -159,6 +204,7 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
                 << std::endl ;
                 
     }
+    */
     while (curr != start) {
         curr = prev_vertex_[curr];
         shortest_path.push_back(curr);

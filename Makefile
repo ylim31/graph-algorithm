@@ -49,7 +49,7 @@ lodepng.o : cs225/lodepng/lodepng.cpp cs225/lodepng/lodepng.h
 graph.o : graph.cpp graph.h edge.h random.h
 	$(CXX) $(CXXFLAGS) graph.cpp
 
-dijkstra.o : dijkstra.cpp dijkstra.h graph.h edge.h heap.h
+dijkstra.o : dijkstra.cpp dijkstra.h graph.h edge.h heap.h include/json.hpp
 	$(CXX) $(CXXFLAGS) dijkstra.cpp
 
 landmark.o : landmark.cpp landmark.h graph.h edge.h

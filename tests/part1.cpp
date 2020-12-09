@@ -17,7 +17,7 @@ TEST_CASE("baby find shortest path 1", "[weight=1]") {
   Vertex end = to_string(3);
   vector<Vertex> result = test.find_shortest_path(start, end);
   for (unsigned i = 0; i < result.size(); i++) {
-    cout << result[i] << endl;
+    //cout << result[i] << endl;
   }
   vector<Vertex> expected;
   expected.push_back(Vertex("0"));
@@ -32,7 +32,7 @@ TEST_CASE("baby find shortest path on itself", "[weight=1]") {
   Vertex end = to_string(2);
   vector<Vertex> result = test.find_shortest_path(start, end);
   for (unsigned i = 0; i < result.size(); i++) {
-    cout << result[i] << endl;
+    //cout << result[i] << endl;
   }
   vector<Vertex> expected;
   REQUIRE(result == expected);
@@ -44,7 +44,7 @@ TEST_CASE("baby find shortest path 2", "[weight=1]") {
   Vertex end = to_string(2);
   vector<Vertex> result = test.find_shortest_path(start, end);
   for (unsigned i = 0; i < result.size(); i++) {
-    cout << result[i] << endl;
+    //cout << result[i] << endl;
   }
   vector<Vertex> expected;
   expected.push_back(Vertex("3"));
@@ -61,7 +61,7 @@ TEST_CASE("example", "[weight=1]") {
   Vertex end = to_string(3);
   vector<Vertex> result = test.find_shortest_path(start, end);
   for (unsigned i = 0; i < result.size(); i++) {
-    cout << result[i] << endl;
+    //cout << result[i] << endl;
   }
   vector<Vertex> expected;
   REQUIRE(result == expected);
@@ -70,11 +70,11 @@ TEST_CASE("example", "[weight=1]") {
 TEST_CASE("2", "[weight=1]") {
   
   Dijkstra test("different_component.csv", "different_component_neighbor.csv");
-  Vertex start = to_string(1);
-  Vertex end = to_string(4);
+  Vertex start = to_string(0);
+  Vertex end = to_string(2);
   vector<Vertex> result = test.find_shortest_path(start, end);
   for (unsigned i = 0; i < result.size(); i++) {
-    cout << result[i] << endl;
+    //cout << result[i] << endl;
   }
   vector<Vertex> expected;
   REQUIRE(result == expected);
@@ -88,7 +88,7 @@ TEST_CASE("23", "[weight=1]") {
   Vertex end = to_string(3);
   vector<Vertex> result = test.find_shortest_path(start, end);
   for (unsigned i = 0; i < result.size(); i++) {
-    cout << result[i] << endl;
+    //cout << result[i] << endl;
   }
   vector<Vertex> expected;
   REQUIRE(result == expected);
