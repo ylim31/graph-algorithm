@@ -64,7 +64,6 @@ Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, fa
         getline(lastfm_neighbor_file, node_neighbor, ']');
         char node_neighbor_char[node_neighbor.size()];
         strcpy(node_neighbor_char, node_neighbor.c_str());
-        
         char* piece = strtok(node_neighbor_char, " , \" \t []");
 
         while (piece != NULL) {
@@ -79,7 +78,7 @@ Dijkstra::Dijkstra(string node_filename, string neighbor_filename) : g_(true, fa
             g_.setEdgeWeight(to_string(i), piece, 1);
             //g_.insertEdge(vertex_list[i], piece);
             //g_.setEdgeWeight(vertex_list[i], piece, 1);
-            piece = strtok(NULL, ", \" []");      
+            ≈    
         }
         i++;
     }

@@ -12,24 +12,19 @@
 using namespace std;
 
 TEST_CASE(" Test 1 ", "[weight=1]") {
-  int i = 3;
-    BFS g(4);
-    vector<Vertex> result;
-   
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 2);
-    g.addEdge(2, 0);
-    g.addEdge(2, 3);
-    g.addEdge(3, 3);
-
-    result = g.traversal(2);
-
-    vector<Vertex> expected;
-    expected.push_back(Vertex("2"));
-    expected.push_back(Vertex("0"));
-    expected.push_back(Vertex("3"));
-    expected.push_back(Vertex("1"));
+  BFS test("bfs_baby_test_node.csv", "bfs_baby_test_neighbor.csv");
+  Vertex start = to_string(0);
+  //Vertex end = to_string(3);
+  //BFS g(4);
+  vector<Vertex> result = test.traversal(start);
+  for (unsigned i = 0; i < result.size(); i++) {
+    cout << result[i] << endl;
+  }
+  vector<Vertex> expected;
+  expected.push_back(Vertex("2"));
+  expected.push_back(Vertex("0"));
+  expected.push_back(Vertex("3"));
+  expected.push_back(Vertex("1"));
     
   REQUIRE(result == expected);
 }

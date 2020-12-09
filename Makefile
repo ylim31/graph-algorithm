@@ -53,21 +53,24 @@ dijkstra.o : dijkstra.cpp dijkstra.h graph.h edge.h heap.h
 	$(CXX) $(CXXFLAGS) dijkstra.cpp
 
 bfs.o : bfs.cpp bfs.h graph.h edge.h heap.h
-	$(CXX) $(CXXFLAGS) dijkstra.cpp
+	$(CXX) $(CXXFLAGS) bfs.cpp
 
 landmark.o : landmark.cpp landmark.h graph.h edge.h
 	$(CXX) $(CXXFLAGS) landmark.cpp
 
 
 
-$(TEST): output_msg part1.o part2.o PNG.o HSLAPixel.o lodepng.o graph.o dijkstra.o
-	$(LD) part1.o part2.o PNG.o HSLAPixel.o lodepng.o graph.o dijkstra.o $(LDFLAGS) -o test
+$(TEST): part1.o part2.o output_msg PNG.o HSLAPixel.o lodepng.o graph.o dijkstra.o bfs_test.o bfs.o
+	$(LD) part1.o part2.o PNG.o HSLAPixel.o lodepng.o graph.o dijkstra.o bfs_test.o bfs.o $(LDFLAGS) -o test
 
 part1.o : tests/part1.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h graph.h dijkstra.h
 	$(CXX) $(CXXFLAGS) tests/part1.cpp
 
 part2.o : tests/part2.cpp tests/catch.hpp graph.h landmark.h 
 	$(CXX) $(CXXFLAGS) tests/part2.cpp
+
+bfs_test.o: tests/bfs_test.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h graph.h bfs.h
+	$(CXX) $(CXXFLAGS) tests/bfs_test.cpp
 
 clean :
 	-rm -f *.o $(EXENAME) test
