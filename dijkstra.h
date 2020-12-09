@@ -18,6 +18,7 @@ class Dijkstra {
         vector<Vertex> find_shortest_path(Vertex start, Vertex end);
         vector<Vertex> backtrack(unordered_map<Vertex, Vertex> prev_vertex_, Vertex start, Vertex end);
         pair<Vertex, int> parse(string input);
+        Graph g_;
     private:
         const static int INF;
         const static Vertex EMPTY_VERTEX;
@@ -28,5 +29,5 @@ class Dijkstra {
         unordered_map<Vertex, Vertex> prev_vertex_;
         unordered_map<Vertex, int> target_map_;
         priority_queue<pair_, std::vector<pair_>, std::greater<pair_>> q2;
-        Graph g_;
+        //Graph g_;
 };
