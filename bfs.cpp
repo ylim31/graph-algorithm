@@ -58,7 +58,6 @@ vector<Vertex> BFS::traversal(Vertex start) {
         start = q.front();
         ret.push_back(start);
         q.pop();
-
         vector<Vertex> its_neighbor = g_.getAdjacent(start);
         for(int i = 0; i < its_neighbor.size(); i++) {
             if (!is_visited_[its_neighbor[i]]) {
@@ -69,4 +68,21 @@ vector<Vertex> BFS::traversal(Vertex start) {
     }
     return ret; 
 }
+
+vector<vector<Vertex>> BFS::connectedComp() {
+    vector<Vertex> vertices = g_.getVertices();
+    vector<vector<Vertex>> result;
+
+    for(int i = 0; i < vertices.size(); i++) {
+        if (!is_visited_[vertices[i]]) {
+            result.push_back(traversal(vertices[i]));
+        }
+    }
+    
+    return result; 
+}
+
+
+
+
 
