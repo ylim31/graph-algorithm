@@ -162,3 +162,10 @@ void Dijkstra::clear(){
     }
 }
 
+int Dijkstra::get_total_cost(vector<Vertex> path) {
+    int total = 0;
+    for (unsigned i = 0; i < path.size() - 1; i++) {
+        total += g_.getEdgeWeight(path[i], path[i + 1]);
+    }
+    return total;
+}

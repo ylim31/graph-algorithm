@@ -7,7 +7,8 @@
 #include <queue>
 
 using namespace std;
-typedef pair<int, Vertex> pair_; 
+typedef pair<int, Vertex> pair_;
+
 /**
  * Dijkstra class. Dijkstra algorithm of an adjacency list implemented graph using priority queue.
  */
@@ -35,6 +36,8 @@ class Dijkstra {
          * Set all values in prev_vertex_, is_visited_, is_marked, and shortest_distance_from_start_ to default.
          */ 
         void clear();
+
+        int get_total_cost(vector<Vertex> path);
     private:
         /**
          * Backtrack through the prev_vertex_ to from end to start to return the shortest path.

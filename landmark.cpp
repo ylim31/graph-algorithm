@@ -16,22 +16,31 @@ LandMark::LandMark(string json_filename, string target_filename) : d_(json_filen
 vector<Vertex> LandMark::find_shortest_path(Vertex start, Vertex end, vector<Vertex> landmarks) {
     vector<Vertex> shortest_path;
     vector<Vertex> eachShortestPath;
-    landmarks.insert(landmarks.begin(), start);
-    landmarks.push_back(end);
+    vector<Vertex> smallest_shortest_path;
+
+    vector<Vertex> copy;
+    int min_cost = 999;
     
-    for (unsigned i = 0; i < landmarks.size() - 1; i++) {
-        
-        eachShortestPath = d_.find_shortest_path(landmarks[i], landmarks[i+1]);
-     
-        if(i>0){
-            eachShortestPath.erase(eachShortestPath.begin());
+    sort(landmarks.begin(), landmarks.end());
+    
+    do {
+        copy = landmarks;
+        copy.insert(copy.begin(), start);
+        copy.push_back(end);
+        for (unsigned i = 0; i < copy.size() - 1; i++) {
+            eachShortestPath = d_.find_shortest_path(copy[i], copy[i+1]);
+            if (i > 0) {
+                eachShortestPath.erase(eachShortestPath.begin());
+            }
+            shortest_path.insert(shortest_path.end(), eachShortestPath.begin(), eachShortestPath.end());
+            d_.clear();
         }
-        
-        shortest_path.insert(shortest_path.end(), eachShortestPath.begin(), eachShortestPath.end());
-        d_.clear();
-    }
-    return shortest_path;
-    
+        int total_cost = d_.get_total_cost(shortest_path);
+        if (total_cost < min_cost) {
+            min_cost = total_cost;
+            smallest_shortest_path = shortest_path;
+        }
+        shortest_path.clear();
+    } while (std::next_permutation(landmarks.begin(), landmarks.end()));
+    return smallest_shortest_path;  
 }
-
-
