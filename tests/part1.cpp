@@ -26,7 +26,7 @@ TEST_CASE("baby find shortest path on itself", "[weight=1]") {
 TEST_CASE("baby find shortest path 1", "[weight=1]") {
   Dijkstra test("tests_folder/dijkstra_baby_test.json");
   Vertex start = to_string(0);
-  Vertex end = to_string(1);
+  Vertex end = to_string(2);
   /*
   test.g_.setEdgeWeight(to_string(0),to_string(1),6);
   test.g_.setEdgeWeight(to_string(0),to_string(3),1);
