@@ -63,4 +63,32 @@ TEST_CASE("landmark baby 3", "[weight=1]") {
   REQUIRE(result == expected);
 }
 
+TEST_CASE("landmark baby 4", "[weight=1]") {
+  //INITIALIZING LANDMARK WITH BABY FILE USE test AS VARIABLE
+  LandMark test("tests_folder/landmark_baby.json", "tests_folder/landmark_baby_target.csv");
+  Vertex start = to_string(0);
+  Vertex end = to_string(5);
+  vector<Vertex> landmark_vector;
+  landmark_vector.push_back(to_string(2));
+  //landmark_vector.push_back(to_string(1));
+  vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
+  vector<Vertex> expected;
+  expected.push_back("0");
+  expected.push_back("2");
+  expected.push_back("4");
+  expected.push_back("5");
+  REQUIRE(result == expected);
+}
+
+TEST_CASE("landmark to itself", "[weight=1]") {
+  //INITIALIZING LANDMARK WITH BABY FILE USE test AS VARIABLE
+  LandMark test("tests_folder/landmark_baby.json", "tests_folder/landmark_baby_target.csv");
+  Vertex start = to_string(0);
+  Vertex end = to_string(0);
+  vector<Vertex> landmark_vector;
+  vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
+  vector<Vertex> expected;
+  REQUIRE(result == expected);
+}
+
 
