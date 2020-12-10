@@ -20,10 +20,10 @@ using json = nlohmann::json;
 const int Dijkstra::INF = 9999;
 const Vertex Dijkstra::EMPTY_VERTEX = to_string(-1);
 Dijkstra::Dijkstra() : g_(true, false) {}
-Dijkstra::Dijkstra(string json_filename) : g_(true, false) {
+Dijkstra::Dijkstra(string json_filename, string target_filename) : g_(true, false) {
     ifstream lastfm_target_file;
-
-    lastfm_target_file.open("tests_folder/dijkstra_baby_target.csv");
+    
+    lastfm_target_file.open(target_filename);
     while (lastfm_target_file.good()) {
         string line;
         getline(lastfm_target_file, line);
@@ -38,7 +38,7 @@ Dijkstra::Dijkstra(string json_filename) : g_(true, false) {
         
     }
     lastfm_target_file.close();
-
+    //cout<<"work"<<endl;
     
     ifstream json_(json_filename);
     json j = json::parse(json_);
@@ -49,7 +49,7 @@ Dijkstra::Dijkstra(string json_filename) : g_(true, false) {
         //g_.insertVertex(it.key());
         for (auto &itr : it.value().items()) {
             
-    
+            //cout<<"work"<<endl;
             g_.insertEdge(it.key(), to_string(itr.value()));
             int weight = get_pythagorean_distance(get_coord(target_map_[it.key()]), get_coord(target_map_[to_string(itr.value())]));
             g_.setEdgeWeight(it.key(), to_string(itr.value()), weight);
@@ -72,7 +72,7 @@ Dijkstra::Dijkstra(string json_filename) : g_(true, false) {
 
     
     
-    g_.print();
+    //g_.print();
     cout << "END OF JSON PARSING" << endl;
 }
 
@@ -153,10 +153,13 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
 pair<Vertex, int> Dijkstra::parse(string input) {
     string delimiter = ",";
     pair<Vertex, int> value;
+    
+    
     value.first = input.substr(0, input.find(delimiter));
+    cout << "FIRST: " << value.first << endl;
     value.second = stoi(input.substr(input.find(delimiter) + 1));
-    //cout << value.first << endl;
-    //cout << value.second << endl;
+    cout << "SECOND: " << value.second << endl;
+    
     return value;
 
 }
