@@ -2,69 +2,50 @@
 #include <vector>
 #include <algorithm>
 #include <string>
-#include <string.h>
 #include <iostream>
 #include <fstream>
-#include <chrono>
 #include <algorithm>
-#include <random>
 #include <cmath>
 #include <math.h> 
 #include "cs225/graph.h"
 #include "include/json.hpp"
-
 
 using namespace std;
 using json = nlohmann::json;
 
 const int Dijkstra::INF = 9999;
 const Vertex Dijkstra::EMPTY_VERTEX = to_string(-1);
+
 Dijkstra::Dijkstra() : g_(true, false) {}
 Dijkstra::Dijkstra(string json_filename, string target_filename) : g_(true, false) {
     ifstream lastfm_target_file;
-    
     lastfm_target_file.open(target_filename);
     while (lastfm_target_file.good()) {
         string line;
         getline(lastfm_target_file, line);
-        //cout << line << endl;
         pair<Vertex, int> target = parse(line);
         auto lookup = target_map_.find(target.first);
         if (lookup == target_map_.end()) {
             target_map_[target.first] = target.second;
         }
-        
-        //cout << target.first << target.second << endl;
-        
     }
     lastfm_target_file.close();
-    //cout<<"work"<<endl;
     
     ifstream json_(json_filename);
     json j = json::parse(json_);
     for (auto &it : j.items()) {
-
-        cout<< "node: " <<it.key()<<endl;         
-
-        //g_.insertVertex(it.key());
         for (auto &itr : it.value().items()) {
-            
-            //cout<<"ITR: " << itr.value()<<endl;
-            //cout<<"KEY: " << it.key()<<endl;
-        
-            string a = to_string(itr.value());
-            a.erase(remove(a.begin(), a.end(), '\"'), a.end());
-            //cout<<a<<endl;
-            //itr.value().erase(std::remove( itr.value().begin(), itr.value().end(), '\"' ),itr.value().end());
-            g_.insertEdge(it.key(), a);
-            int weight = get_pythagorean_distance(get_coord(target_map_[it.key()]), get_coord(target_map_[a]));
-            g_.setEdgeWeight(it.key(), a, weight);
-            auto lookup = is_visited_.find(a);
+            string each_neighbor = to_string(itr.value());
+            each_neighbor.erase(remove(each_neighbor.begin(), each_neighbor.end(), '\"'), each_neighbor.end());
+            g_.insertEdge(it.key(), each_neighbor);
+            int weight = get_pythagorean_distance(get_coord(target_map_[it.key()]), get_coord(target_map_[each_neighbor]));
+            g_.setEdgeWeight(it.key(), each_neighbor, weight);
+            auto lookup = is_visited_.find(each_neighbor);
             if (lookup == is_visited_.end()) {
-                is_visited_[a] = false;
-                shortest_distance_from_start_[a] = INF;
-                prev_vertex_[a] = EMPTY_VERTEX;
-                is_marked[a] = false;
+                is_visited_[each_neighbor] = false;
+                shortest_distance_from_start_[each_neighbor] = INF;
+                prev_vertex_[each_neighbor] = EMPTY_VERTEX;
+                is_marked[each_neighbor] = false;
             }  
         }
         auto lookup = is_visited_.find(it.key());
@@ -79,12 +60,13 @@ Dijkstra::Dijkstra(string json_filename, string target_filename) : g_(true, fals
     cout << "END OF JSON PARSING" << endl;
 }
 
+
 vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
     if (start == end) {
-        return vector<Vertex>();
+        vector<Vertex> v;
+        v.push_back(start);
+        return v;
     }
-    cout << "START: " << start << endl;
-    cout << "END: " << end << endl;
     auto lookup_start = is_visited_.find(start);
     auto lookup_end = is_visited_.find(end);
     if (lookup_start == is_visited_.end() || lookup_end == is_visited_.end()) {
@@ -93,8 +75,8 @@ vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
     shortest_distance_from_start_[start] = 0;
     Vertex current_vertex = start;
 
-    q2.push(make_pair(0, start));
-    while (!q2.empty()) {
+    queue.push(make_pair(0, start));
+    while (!queue.empty()) {
         vector<Vertex> its_neighbor = g_.getAdjacent(current_vertex);
         for (unsigned i = 0; i < its_neighbor.size(); i++) {
             if (is_visited_[its_neighbor[i]] == false) {
@@ -109,32 +91,27 @@ vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
         is_marked[current_vertex] = true;
         for (unsigned i = 0; i < its_neighbor.size(); i++) {
             if (is_marked[its_neighbor[i]] == false) {
-                q2.push(make_pair(shortest_distance_from_start_[its_neighbor[i]], its_neighbor[i]));
+                queue.push(make_pair(shortest_distance_from_start_[its_neighbor[i]], its_neighbor[i]));
             }
             is_marked[its_neighbor[i]] = true;
         }
-    
-        
-        q2.pop();
-        pair_ pair = q2.top();
- 
+        queue.pop();
+        pair_ pair = queue.top();
         Vertex shortest_vertex = pair.second;
         current_vertex = shortest_vertex;
     }
-    return backtrack(prev_vertex_, start, end);
+    return backtrack(start, end);
 }
 
-vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, Vertex start, Vertex end) {
+vector<Vertex> Dijkstra::backtrack(Vertex start, Vertex end) {
     vector<Vertex> shortest_path;
-    
     shortest_path.push_back(end);
     Vertex curr = end;
-    
     Vertex lookup = prev_vertex_[end];
     if (lookup == EMPTY_VERTEX) {
         return vector<Vertex>(); 
     }
-    
+    /*
     unordered_map<Vertex, Vertex>::iterator it;
     for ( it = prev_vertex_.begin(); it != prev_vertex_.end(); it++ )
     {   
@@ -144,10 +121,10 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
                 << std::endl ;
                 
     }
+    */
     while (curr != start) {
         curr = prev_vertex_[curr];
         shortest_path.push_back(curr);
-
     }
     std::reverse(shortest_path.begin(), shortest_path.end());
     return shortest_path;
