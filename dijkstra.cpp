@@ -44,21 +44,27 @@ Dijkstra::Dijkstra(string json_filename, string target_filename) : g_(true, fals
     json j = json::parse(json_);
     for (auto &it : j.items()) {
 
-        //cout<< "node: " <<it.key()<<endl;         
+        cout<< "node: " <<it.key()<<endl;         
 
         //g_.insertVertex(it.key());
         for (auto &itr : it.value().items()) {
             
-            //cout<<"work"<<endl;
-            g_.insertEdge(it.key(), to_string(itr.value()));
-            int weight = get_pythagorean_distance(get_coord(target_map_[it.key()]), get_coord(target_map_[to_string(itr.value())]));
-            g_.setEdgeWeight(it.key(), to_string(itr.value()), weight);
-            auto lookup = is_visited_.find(to_string(itr.value()));
+            //cout<<"ITR: " << itr.value()<<endl;
+            //cout<<"KEY: " << it.key()<<endl;
+        
+            string a = to_string(itr.value());
+            a.erase(remove(a.begin(), a.end(), '\"'), a.end());
+            //cout<<a<<endl;
+            //itr.value().erase(std::remove( itr.value().begin(), itr.value().end(), '\"' ),itr.value().end());
+            g_.insertEdge(it.key(), a);
+            int weight = get_pythagorean_distance(get_coord(target_map_[it.key()]), get_coord(target_map_[a]));
+            g_.setEdgeWeight(it.key(), a, weight);
+            auto lookup = is_visited_.find(a);
             if (lookup == is_visited_.end()) {
-                is_visited_[to_string(itr.value())] = false;
-                shortest_distance_from_start_[to_string(itr.value())] = INF;
-                prev_vertex_[to_string(itr.value())] = EMPTY_VERTEX;
-                is_marked[to_string(itr.value())] = false;
+                is_visited_[a] = false;
+                shortest_distance_from_start_[a] = INF;
+                prev_vertex_[a] = EMPTY_VERTEX;
+                is_marked[a] = false;
             }  
         }
         auto lookup = is_visited_.find(it.key());
@@ -77,12 +83,18 @@ vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
     if (start == end) {
         return vector<Vertex>();
     }
+    cout << "START: " << start << endl;
+    cout << "END: " << end << endl;
+    auto lookup_start = is_visited_.find(start);
+    auto lookup_end = is_visited_.find(end);
+    if (lookup_start == is_visited_.end() || lookup_end == is_visited_.end()) {
+        return vector<Vertex>();
+    }
     shortest_distance_from_start_[start] = 0;
     Vertex current_vertex = start;
-    bool is_first = true;
+
     q2.push(make_pair(0, start));
     while (!q2.empty()) {
-       
         vector<Vertex> its_neighbor = g_.getAdjacent(current_vertex);
         for (unsigned i = 0; i < its_neighbor.size(); i++) {
             if (is_visited_[its_neighbor[i]] == false) {
@@ -93,7 +105,6 @@ vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
                 }
             }
         }
-
         is_visited_[current_vertex] = true;
         is_marked[current_vertex] = true;
         for (unsigned i = 0; i < its_neighbor.size(); i++) {
@@ -102,12 +113,10 @@ vector<Vertex> Dijkstra::find_shortest_path(Vertex start, Vertex end) {
             }
             is_marked[its_neighbor[i]] = true;
         }
-        if (is_first) {
-            q2.pop();
-            is_first = false;
-        }
-        pair_ pair = q2.top();
+    
+        
         q2.pop();
+        pair_ pair = q2.top();
  
         Vertex shortest_vertex = pair.second;
         current_vertex = shortest_vertex;
@@ -135,7 +144,6 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
                 << std::endl ;
                 
     }
-    
     while (curr != start) {
         curr = prev_vertex_[curr];
         shortest_path.push_back(curr);
@@ -143,21 +151,15 @@ vector<Vertex> Dijkstra::backtrack(unordered_map<Vertex, Vertex> prev_vertex_, V
     }
     std::reverse(shortest_path.begin(), shortest_path.end());
     return shortest_path;
-
 }
 
 
 pair<Vertex, int> Dijkstra::parse(string input) {
     string delimiter = ",";
     pair<Vertex, int> value;
-    
-    
     value.first = input.substr(0, input.find(delimiter));
-    value.second = stoi(input.substr(input.find(delimiter) + 1));
-
-    
+    value.second = stoi(input.substr(input.find(delimiter) + 1));    
     return value;
-
 }
 
 int Dijkstra::get_pythagorean_distance(pair<int, int> coord_a, pair<int, int> coord_b) {
@@ -175,14 +177,11 @@ pair<int, int> Dijkstra::get_coord(int input) {
 }
 
 void Dijkstra::clear(){
-    for(unordered_map<Vertex,Vertex>::iterator it = prev_vertex_.begin();it!=prev_vertex_.end(); it++){
+    for (unordered_map<Vertex, Vertex>::iterator it = prev_vertex_.begin(); it != prev_vertex_.end(); it++ ) {
         prev_vertex_[it->first] = EMPTY_VERTEX;
-    }
-    for(unordered_map<Vertex,bool>::iterator it = is_visited_.begin();it!=is_visited_.end(); it++){
         is_visited_[it->first] = false;
         is_marked[it->first] = false;
-    }
-    for(unordered_map<Vertex,int>::iterator it = shortest_distance_from_start_.begin(); it!=shortest_distance_from_start_.end(); it++){
         shortest_distance_from_start_[it->first] = INF;
     }
 }
+
