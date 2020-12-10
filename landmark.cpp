@@ -11,7 +11,7 @@ using namespace std;
 
 
 LandMark::LandMark() : d_("", "") { }
-LandMark::LandMark(string node_filename, string neighbor_filename) : d_(node_filename, neighbor_filename) {
+LandMark::LandMark(string json_filename, string target_filename) : d_(json_filename, target_filename) {
 }
 
 vector<Vertex> LandMark::find_shortest_path(Vertex start, Vertex end, vector<Vertex> landmarks) {

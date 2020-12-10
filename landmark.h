@@ -11,7 +11,7 @@ using namespace std;
 class LandMark {
     public:
         LandMark();
-        LandMark(string node_filename, string neighbor_filename);
+        LandMark(string json_filename, string target_filename);
         vector<Vertex> find_shortest_path(Vertex start, Vertex end, vector<Vertex> landmarks);
     
     private:
