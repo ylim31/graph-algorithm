@@ -52,17 +52,15 @@ graph.o : cs225/graph.cpp cs225/graph.h cs225/edge.h cs225/random.h
 dijkstra.o : dijkstra.cpp dijkstra.h cs225/graph.h cs225/edge.h include/json.hpp
 	$(CXX) $(CXXFLAGS) dijkstra.cpp
 
-
 landmark.o : landmark.cpp landmark.h cs225/graph.h cs225/edge.h
 	$(CXX) $(CXXFLAGS) landmark.cpp
 	
-
 bfs.o : bfs.cpp bfs.h cs225/graph.h cs225/edge.h
 	$(CXX) $(CXXFLAGS) bfs.cpp
 
 
-$(TEST): output_msg part1.o part2.o bfs_test.o PNG.o HSLAPixel.o lodepng.o cs225/graph.o dijkstra.o bfs.o
-	$(LD) part1.o part2.o PNG.o bfs_test.o HSLAPixel.o lodepng.o cs225/graph.o dijkstra.o bfs.o $(LDFLAGS) -o test
+$(TEST): output_msg part1.o bfs_test.o PNG.o HSLAPixel.o lodepng.o cs225/graph.o dijkstra.o bfs.o
+	$(LD) part1.o PNG.o bfs_test.o HSLAPixel.o lodepng.o cs225/graph.o dijkstra.o bfs.o $(LDFLAGS) -o test
 
 part1.o : tests/part1.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h cs225/graph.h dijkstra.h
 	$(CXX) $(CXXFLAGS) tests/part1.cpp
