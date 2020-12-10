@@ -14,11 +14,12 @@ typedef pair<int, Vertex> pair_;
 class Dijkstra {
     public:
         Dijkstra();
-        Dijkstra(string json_filename);
+        Dijkstra(string json_filename, string target_filename);
         vector<Vertex> find_shortest_path(Vertex start, Vertex end);
         vector<Vertex> backtrack(unordered_map<Vertex, Vertex> prev_vertex_, Vertex start, Vertex end);
         pair<Vertex, int> parse(string input);
-        //Graph g_;
+        pair<int, int> get_coord(int input);
+        int get_pythagorean_distance(pair<int, int> coord_a, pair<int, int> coord_b);
     private:
         const static int INF;
         const static Vertex EMPTY_VERTEX;
