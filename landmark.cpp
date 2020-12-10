@@ -16,11 +16,24 @@ LandMark::LandMark(string json_filename, string target_filename) : d_(json_filen
 
 vector<Vertex> LandMark::find_shortest_path(Vertex start, Vertex end, vector<Vertex> landmarks) {
     vector<Vertex> shortest_path;
+    vector<Vertex> eachShortestPath;
     landmarks.insert(landmarks.begin(), start);
     landmarks.push_back(end);
-
+    
     for (unsigned i = 0; i < landmarks.size() - 1; i++) {
-        shortest_path.insert(shortest_path.begin(), shortest_path.end(), d_.find_shortest_path(landmarks[i], landmarks[i+1]).end());
+        
+        eachShortestPath = d_.find_shortest_path(landmarks[i], landmarks[i+1]);
+        /*
+        for(unsigned j = 0 ; j < eachShortest.size(); j++){
+            cout<<"HERE IS SHORTEST PATH" + whatever[j]<<endl;
+        }
+        */
+        if(i>0){
+            eachShortestPath.erase(eachShortestPath.begin());
+        }
+        
+        shortest_path.insert(shortest_path.end(), eachShortestPath.begin(), eachShortestPath.end());
+        d_.clear();
     }
     return shortest_path;
     

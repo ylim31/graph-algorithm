@@ -20,6 +20,7 @@ class Dijkstra {
         pair<Vertex, int> parse(string input);
         pair<int, int> get_coord(int input);
         int get_pythagorean_distance(pair<int, int> coord_a, pair<int, int> coord_b);
+        void clear();
     private:
         const static int INF;
         const static Vertex EMPTY_VERTEX;
