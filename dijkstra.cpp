@@ -153,9 +153,8 @@ pair<Vertex, int> Dijkstra::parse(string input) {
     
     
     value.first = input.substr(0, input.find(delimiter));
-    cout << "FIRST: " << value.first << endl;
     value.second = stoi(input.substr(input.find(delimiter) + 1));
-    cout << "SECOND: " << value.second << endl;
+
     
     return value;
 
