@@ -56,7 +56,7 @@ Dijkstra::Dijkstra(string json_filename, string target_filename) : g_(true, fals
             is_marked[it.key()] = false;
         }    
     }
-    //g_.print();
+    g_.print();
     cout << "END OF JSON PARSING" << endl;
 }
 
@@ -167,5 +167,6 @@ int Dijkstra::get_total_cost(vector<Vertex> path) {
     for (unsigned i = 0; i < path.size() - 1; i++) {
         total += g_.getEdgeWeight(path[i], path[i + 1]);
     }
+
     return total;
 }

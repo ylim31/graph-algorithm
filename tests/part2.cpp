@@ -15,12 +15,12 @@ TEST_CASE("landmark baby 1", "[weight=1]") {
   Vertex landmark = to_string(1);
   Vertex end = to_string(4);
   vector<Vertex> landmark_vector;
-  landmark_vector.push_back(to_string(1));
+  landmark_vector.push_back(Vertex("1"));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
-  expected.push_back("0");
-  expected.push_back("1");
-  expected.push_back("4");
+  expected.push_back(Vertex("0"));
+  expected.push_back(Vertex("1"));
+  expected.push_back(Vertex("4"));
   REQUIRE(result == expected);
 }
 
@@ -30,14 +30,14 @@ TEST_CASE("landmark baby 2", "[weight=1]") {
   Vertex start = to_string(0);
   Vertex end = to_string(2);
   vector<Vertex> landmark_vector;
-  landmark_vector.push_back(to_string(3));
-  landmark_vector.push_back(to_string(1));
+  landmark_vector.push_back(Vertex("3"));
+  landmark_vector.push_back(Vertex("1"));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
-  expected.push_back("0");
-  expected.push_back("3");
-  expected.push_back("1");
-  expected.push_back("2");
+  expected.push_back(Vertex("0"));
+  expected.push_back(Vertex("3"));
+  expected.push_back(Vertex("1"));
+  expected.push_back(Vertex("2"));
   REQUIRE(result == expected);
 }
 
@@ -47,14 +47,14 @@ TEST_CASE("landmark baby 3", "[weight=1]") {
   Vertex start = to_string(0);
   Vertex end = to_string(2);
   vector<Vertex> landmark_vector;
-  landmark_vector.push_back(to_string(4));
+  landmark_vector.push_back(Vertex("4"));
   //landmark_vector.push_back(to_string(1));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
-  expected.push_back("0");
-  expected.push_back("3");
-  expected.push_back("4");
-  expected.push_back("2");
+  expected.push_back(Vertex("0"));
+  expected.push_back(Vertex("3"));
+  expected.push_back(Vertex("4"));
+  expected.push_back(Vertex("2"));
   REQUIRE(result == expected);
 }
 
@@ -64,14 +64,14 @@ TEST_CASE("landmark baby 4", "[weight=1]") {
   Vertex start = to_string(0);
   Vertex end = to_string(5);
   vector<Vertex> landmark_vector;
-  landmark_vector.push_back(to_string(2));
+  landmark_vector.push_back(Vertex"2");
   //landmark_vector.push_back(to_string(1));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
-  expected.push_back("0");
-  expected.push_back("2");
-  expected.push_back("4");
-  expected.push_back("5");
+  expected.push_back(Vertex("0"));
+  expected.push_back(Vertex("2"));
+  expected.push_back(Vertex("4"));
+  expected.push_back(Vertex("5"));
   REQUIRE(result == expected);
 }
 
@@ -91,8 +91,8 @@ TEST_CASE("2", "[weight=1]") {
   Vertex start = to_string(0);
   Vertex end = to_string(5);
   vector<Vertex> landmark_vector;
-  landmark_vector.push_back(to_string(4));
-  landmark_vector.push_back(to_string(1));
+  landmark_vector.push_back(Vertex("4"));
+  landmark_vector.push_back(Vertex("1"));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
   REQUIRE(result == expected);
@@ -103,9 +103,9 @@ TEST_CASE("23", "[weight=1]") {
   Vertex start = to_string(0);
   Vertex end = to_string(5);
   vector<Vertex> landmark_vector;
-  landmark_vector.push_back(to_string(1));
-  landmark_vector.push_back(to_string(2));
-  landmark_vector.push_back(to_string(4));
+  landmark_vector.push_back(Vertex("1"));
+  landmark_vector.push_back(Vertex("2"));
+  landmark_vector.push_back(Vertex("4"));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
   REQUIRE(result == expected);
