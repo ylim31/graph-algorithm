@@ -5,7 +5,7 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
-#include "graph.h"
+#include "cs225/graph.h"
 
 using namespace std;
 

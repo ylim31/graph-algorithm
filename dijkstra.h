@@ -1,7 +1,7 @@
 #pragma once
 
-#include "graph.h"
-#include "edge.h"
+#include "cs225/graph.h"
+#include "cs225/edge.h"
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -14,10 +14,11 @@ typedef pair<int, Vertex> pair_;
 class Dijkstra {
     public:
         Dijkstra();
-        Dijkstra(string node_filename, string neighbor_filename);
+        Dijkstra(string json_filename);
         vector<Vertex> find_shortest_path(Vertex start, Vertex end);
         vector<Vertex> backtrack(unordered_map<Vertex, Vertex> prev_vertex_, Vertex start, Vertex end);
         pair<Vertex, int> parse(string input);
+        //Graph g_;
     private:
         const static int INF;
         const static Vertex EMPTY_VERTEX;

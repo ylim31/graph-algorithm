@@ -1,8 +1,7 @@
 #pragma once
 
 #include "dijkstra.h"
-#include "graph.h"
-#include "edge.h"
+#include "cs225/graph.h"
 #include <algorithm>
 #include <string>
 #include <queue>
