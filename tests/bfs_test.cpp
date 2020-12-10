@@ -81,3 +81,29 @@ TEST_CASE(" Test Different Components Graph - Traversal ", "[weight=2]") {
   REQUIRE(result.size() == expected.size());
   REQUIRE(result == expected);
 } 
+
+
+TEST_CASE(" Test Different Components Complex Graph - Traversal ", "[weight=2]") {
+  BFS test("BFS-csv/different_component complex.csv", "BFS-csv/different_component_neighbor complex.csv");
+  Vertex start = to_string(0);
+  vector<vector<Vertex>> result = test.connectedComp();
+  
+  vector<vector<Vertex>> expected;
+  vector<Vertex> expected1;
+  expected1.push_back("1");
+  expected1.push_back("0");
+  //sort(expected1.begin(), expected1.end());
+
+  vector<Vertex> expected2;
+  expected2.push_back("5");
+  expected2.push_back("4");
+  expected2.push_back("2");
+  expected2.push_back("3");
+  //sort(expected2.begin(), expected2.end());
+
+  expected.push_back(expected2);
+  expected.push_back(expected1);
+  
+  REQUIRE(result.size() == expected.size());
+  REQUIRE(result == expected);
+} 
