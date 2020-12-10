@@ -12,7 +12,7 @@
 using namespace std;
 
 TEST_CASE("baby find shortest path on itself", "[weight=1]") {
-  Dijkstra test("dijkstra_baby_test.json");
+  Dijkstra test("tests_folder/dijkstra_baby_test.json");
   Vertex start = to_string(2);
   Vertex end = to_string(2);
   vector<Vertex> result = test.find_shortest_path(start, end);
@@ -24,7 +24,7 @@ TEST_CASE("baby find shortest path on itself", "[weight=1]") {
 }
 
 TEST_CASE("baby find shortest path 1", "[weight=1]") {
-  Dijkstra test("dijkstra_baby_test.json");
+  Dijkstra test("tests_folder/dijkstra_baby_test.json");
   Vertex start = to_string(0);
   Vertex end = to_string(1);
   /*
@@ -49,7 +49,7 @@ TEST_CASE("baby find shortest path 1", "[weight=1]") {
 
 
 TEST_CASE("baby find shortest path 2", "[weight=1]") {
-  Dijkstra test("dijkstra_baby_test.json");
+  Dijkstra test("tests_folder/dijkstra_baby_test.json");
   Vertex start = to_string(3);
   Vertex end = to_string(2);
   /*
@@ -121,7 +121,7 @@ TEST_CASE("shortest path baby 2 (landmark)", "[weight=1]") {
 */
 
 TEST_CASE("example", "[weight=1]") {
-  Dijkstra test("lastfm_asia_features.json");
+  Dijkstra test("tests_folder/lastfm_asia_features.json");
   Vertex start = to_string(0);
   Vertex end = to_string(2);
   vector<Vertex> result = test.find_shortest_path(start, end);
@@ -134,7 +134,7 @@ TEST_CASE("example", "[weight=1]") {
 
 TEST_CASE("2", "[weight=1]") {
   //different component
-  Dijkstra test("dijkstra_different_component_test.json");
+  Dijkstra test("tests_folder/dijkstra_different_component_test.json");
   Vertex start = to_string(0);
   Vertex end = to_string(4);
   vector<Vertex> result = test.find_shortest_path(start, end);
@@ -148,7 +148,7 @@ TEST_CASE("2", "[weight=1]") {
 
 TEST_CASE("23", "[weight=1]") {
   //check if the algorthirm correctly chooses the path that visits more nodes with shorter weight rather than path that visits less nodes with higher weight.
-  Dijkstra g("dijkstra_baby_test2.json");
+  Dijkstra g("tests_folder/dijkstra_baby_test2.json");
   Vertex start = to_string(0);
   Vertex end = to_string(3);
   vector<Vertex> result = g.find_shortest_path(start, end);
