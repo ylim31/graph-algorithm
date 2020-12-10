@@ -174,3 +174,16 @@ pair<int, int> Dijkstra::get_coord(int input) {
     return value;
 }
 
+void Dijkstra::clear(){
+    for (unordered_map<Vertex, Vertex>::iterator it = prev_vertex_.begin(); it != prev_vertex_.end(); it++ ) {
+        prev_vertex_[it->first] = EMPTY_VERTEX;
+    }
+    for (unordered_map<Vertex, bool>::iterator it = is_visited_.begin(); it != is_visited_.end(); it++ ) {
+        is_visited_[it->first] = false;
+        is_marked[it->first] = false;
+    }
+    for (unordered_map<Vertex, int>::iterator it = shortest_distance_from_start_.begin(); it != shortest_distance_from_start_.end(); it++ ) {
+        shortest_distance_from_start_[it->first] = INF;
+    }
+}
+
