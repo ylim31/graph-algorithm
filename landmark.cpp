@@ -19,7 +19,6 @@ vector<Vertex> LandMark::find_shortest_path(Vertex start, Vertex end, vector<Ver
     vector<Vertex> eachShortestPath;
     landmarks.insert(landmarks.begin(), start);
     landmarks.push_back(end);
-<<<<<<< HEAD
     
     for (unsigned i = 0; i < landmarks.size() - 1; i++) {
         
@@ -35,12 +34,6 @@ vector<Vertex> LandMark::find_shortest_path(Vertex start, Vertex end, vector<Ver
         
         shortest_path.insert(shortest_path.end(), eachShortestPath.begin(), eachShortestPath.end());
         d_.clear();
-=======
-
-
-    for (unsigned i = 0; i < landmarks.size() - 1; i++) {
-        shortest_path.insert(shortest_path.end(), shortest_path.begin(), d_.find_shortest_path(landmarks[i], landmarks[i+1]).end());
->>>>>>> cdf40c67fe183ed08a8f79117e9556cf82ca28b6
     }
     return shortest_path;
     
