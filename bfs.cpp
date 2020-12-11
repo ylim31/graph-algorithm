@@ -16,6 +16,7 @@ using json = nlohmann::json;
 BFS::BFS() : g_(true, false) {}
 
 BFS::BFS(string json_filename) : g_(true, false) {
+    numVertices = 0;
     ifstream json_(json_filename);
     json j = json::parse(json_);
     numVertices = 0;
@@ -30,18 +31,18 @@ BFS::BFS(string json_filename) : g_(true, false) {
         is_visited_[it.key()] = false;  
     }
     //g_.print();
-    //cout << "END OF JSON PARSING" << endl;
+    cout << "END OF JSON PARSING" << endl;
 }
 
 
 vector<Vertex> BFS::traversal(Vertex start) {
     vector<Vertex> ret;
     queue<Vertex> q;
-    
     auto lookup = is_visited_.find(start);
     if (lookup == is_visited_.end()) {
         return vector<Vertex>();
     }
+
     is_visited_[start] = true;
     q.push(start);
     
@@ -62,6 +63,7 @@ vector<Vertex> BFS::traversal(Vertex start) {
 
 vector<vector<Vertex>> BFS::connectedComp() {
     vector<Vertex> vertices = g_.getVertices();
+    numVertices = vertices.size();
     vector<vector<Vertex>> result;
 
     for(int i = 0; i < (int) vertices.size(); i++) {
@@ -73,10 +75,8 @@ vector<vector<Vertex>> BFS::connectedComp() {
     return result; 
 }
 
-int BFS::numNodes() {
+int BFS::numNodes(){
     return numVertices;
 }
-
-
 
 
