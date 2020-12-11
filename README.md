@@ -17,7 +17,7 @@ When creating your own json and target (csv) files, you must create following th
 | .json|<pre lang="json">{<br>  "0": [1, 2]<br>}</pre>|
 | .csv | 0, 1|
 
-You can see some example json and target files we created in the `test_folder\` and `BFS-tests\` folders
+You can see some example json and target files we created in the `test_folder\` and `BFS-tests\` folders. We wrote many test cases in the `tests\` folder where we use the files.
 
 ## RUN
 To run the algorithms, you can compile the executable by linking your code using the following command: 
