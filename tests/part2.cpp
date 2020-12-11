@@ -81,13 +81,14 @@ TEST_CASE("Test landmark baby 3", "[part2]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("Test landmark test medium", "[part2]") {
+TEST_CASE("Test landmark medium", "[part2]") {
   LandMark test("tests_folder/dijkstra_baby_test2.json", "tests_folder/dijkstra_baby_target2.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("5");
   vector<Vertex> landmark_vector;
   landmark_vector.push_back(Vertex("4"));
   landmark_vector.push_back(Vertex("1"));
+  landmark_vector.push_back(Vertex("4"));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
   expected.push_back(Vertex("0"));
@@ -99,7 +100,7 @@ TEST_CASE("Test landmark test medium", "[part2]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("Test landmark test medium 2", "[part2]") {
+TEST_CASE("Test landmark medium 2", "[part2]") {
   //Three landmark vertices. Correctly finds the shortest path that visits all of them.
   LandMark test("tests_folder/dijkstra_baby_test2.json", "tests_folder/dijkstra_baby_target2.csv");
   Vertex start = to_string(0);
@@ -120,6 +121,24 @@ TEST_CASE("Test landmark test medium 2", "[part2]") {
   expected.push_back(Vertex("5"));
   REQUIRE(result == expected);
 }
+
+TEST_CASE("Test landmark letters", "[part2]") {
+  //Test on graph with letters as vertex
+  LandMark test("tests_folder/dijkstra_baby_test3.json", "tests_folder/dijkstra_baby_target3.csv");
+  Vertex start = "A";
+  Vertex end = "C";
+  vector<Vertex> landmark_vector;
+  landmark_vector.push_back(Vertex("E"));
+  vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
+  vector<Vertex> expected;
+  expected.push_back(Vertex("A"));
+  expected.push_back(Vertex("B"));
+  expected.push_back(Vertex("E"));
+  expected.push_back(Vertex("B"));
+  expected.push_back(Vertex("C"));
+  REQUIRE(result == expected);
+}
+
 
 TEST_CASE("landmark test large", "[weight=1]") {
   LandMark test("lastfm_asia_features.json", "lastfm_asia_target.csv");
