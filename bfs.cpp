@@ -1,5 +1,6 @@
 #include "bfs.h"
-#include "cs225//graph.h"
+#include "cs225/graph.h"
+#include "include/json.hpp"
 #include <vector>
 #include <algorithm>
 #include <unordered_map>
@@ -10,41 +11,32 @@
 #include <fstream>
 
 using namespace std;
+using json = nlohmann::json;
 
 BFS::BFS() : g_(true, false) {}
 
-BFS::BFS(string node_filename, string neighbor_filename) : g_(true, false) {
-ifstream lastfm_file;
-ifstream lastfm_neighbor_file;
-lastfm_file.open(node_filename);
-lastfm_neighbor_file.open(neighbor_filename);
-
-while (lastfm_file.good()) {
-    string node_label;
-    getline(lastfm_file, node_label, ',');
-    g_.insertVertex(node_label); 
-    is_visited_[node_label] = false;
+BFS::BFS(string json_filename) : g_(true, false) {
+    ifstream json_(json_filename);
+    json j = json::parse(json_);
+    for (auto &it : j.items()) {
+        for (auto &itr : it.value().items()) {
+            string each_neighbor = to_string(itr.value());
+            each_neighbor.erase(remove(each_neighbor.begin(), each_neighbor.end(), '\"'), each_neighbor.end());
+            g_.insertEdge(it.key(), each_neighbor);   
+            is_visited_[each_neighbor] = false;
+        }
+        is_visited_[it.key()] = false;  
+    }
+    g_.print();
+    cout << "END OF JSON PARSING" << endl;
 }
 
-lastfm_file.close();
-
-size_t i = 0;
-while (lastfm_neighbor_file.good()) {
-        string each;
-        string node_neighbor;
-        getline(lastfm_neighbor_file, node_neighbor, ']');
-        char node_neighbor_char[node_neighbor.size()];
-        strcpy(node_neighbor_char, node_neighbor.c_str());
-        
-        char* piece = strtok(node_neighbor_char, " , \" \t []");
-        while (piece != NULL) { 
-            g_.insertEdge(to_string(i), piece);
-            piece = strtok(NULL, ", \" []");      
-        }
-        i++;  
-    }
-
-lastfm_neighbor_file.close();
+pair<Vertex, int> BFS::parse(string input) {
+    string delimiter = ",";
+    pair<Vertex, int> value;
+    value.first = input.substr(0, input.find(delimiter));
+    value.second = stoi(input.substr(input.find(delimiter) + 1));    
+    return value;
 }
 
 vector<Vertex> BFS::traversal(Vertex start) {
