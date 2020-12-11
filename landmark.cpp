@@ -27,21 +27,20 @@ vector<Vertex> LandMark::find_shortest_path(Vertex start, Vertex end, vector<Ver
         copy = landmarks;
         copy.insert(copy.begin(), start);
         copy.push_back(end);
-        /**for (unsigned i = 0; i < copy.size(); i++) {
-            cout << "COPY PATH: "<< copy[i] << endl;
-        } **/
+       
         for (unsigned i = 0; i < copy.size() - 1; i++) {
             
             eachShortestPath = d_.find_shortest_path(copy[i], copy[i+1]);
+            if (eachShortestPath.empty()) {
+                return vector<Vertex>();
+            }
             if (i > 0) {
                 eachShortestPath.erase(eachShortestPath.begin());
             }
             shortest_path.insert(shortest_path.end(), eachShortestPath.begin(), eachShortestPath.end());
             d_.clear();
         }
-        /** for (unsigned i = 0; i < shortest_path.size(); i++) {
-            cout << "SHORTEST PATH: "<< shortest_path[i] << endl;
-        } **/
+        
         int total_cost = d_.get_total_cost(shortest_path);
         cout << total_cost << endl;
         if (total_cost < min_cost) {
