@@ -55,7 +55,7 @@ dijkstra.o : dijkstra.cpp dijkstra.h cs225/graph.h include/json.hpp
 landmark.o : landmark.cpp landmark.h cs225/graph.h cs225/edge.h
 	$(CXX) $(CXXFLAGS) landmark.cpp
 	
-bfs.o : bfs.cpp bfs.h cs225/graph.h cs225/edge.h
+bfs.o : bfs.cpp bfs.h cs225/graph.h cs225/edge.h include/json.hpp
 	$(CXX) $(CXXFLAGS) bfs.cpp
 
 

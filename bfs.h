@@ -10,9 +10,10 @@
 class BFS {
     public:
         BFS();
-        BFS(string node_filename, string neighbor_filename);
+        BFS(string node_filename);
         vector<Vertex> traversal(Vertex start);
         vector<vector<Vertex>> connectedComp();
+        pair<Vertex, int> parse(string input);
     private:
         unordered_map<Vertex, bool> is_visited_;
         Graph g_;

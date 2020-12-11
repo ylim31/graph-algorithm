@@ -64,7 +64,7 @@ TEST_CASE("landmark baby 4", "[weight=1]") {
   Vertex start = to_string(0);
   Vertex end = to_string(5);
   vector<Vertex> landmark_vector;
-  landmark_vector.push_back(Vertex"2");
+  landmark_vector.push_back(Vertex("2"));
   //landmark_vector.push_back(to_string(1));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
