@@ -42,7 +42,7 @@ vector<Vertex> LandMark::find_shortest_path(Vertex start, Vertex end, vector<Ver
         }
         
         int total_cost = d_.get_total_cost(shortest_path);
-        cout << total_cost << endl;
+    
         if (total_cost < min_cost) {
             min_cost = total_cost;
             smallest_shortest_path = shortest_path;

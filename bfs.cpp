@@ -27,25 +27,21 @@ BFS::BFS(string json_filename) : g_(true, false) {
         }
         is_visited_[it.key()] = false;  
     }
-    g_.print();
-    cout << "END OF JSON PARSING" << endl;
+    //g_.print();
+    //cout << "END OF JSON PARSING" << endl;
 }
 
-pair<Vertex, int> BFS::parse(string input) {
-    string delimiter = ",";
-    pair<Vertex, int> value;
-    value.first = input.substr(0, input.find(delimiter));
-    value.second = stoi(input.substr(input.find(delimiter) + 1));    
-    return value;
-}
 
 vector<Vertex> BFS::traversal(Vertex start) {
     vector<Vertex> ret;
     queue<Vertex> q;
-    
+    auto lookup = is_visited_.find(start);
+    if (lookup == is_visited_.end()) {
+        return vector<Vertex>();
+    }
     is_visited_[start] = true;
     q.push(start);
-
+    
     while(!q.empty()) {
         start = q.front();
         ret.push_back(start);

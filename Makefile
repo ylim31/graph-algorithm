@@ -1,6 +1,6 @@
 EXENAME = main
 TEST = test
-OBJS = PNG.o HSLAPixel.o lodepng.o main.o graph.o
+OBJS = PNG.o HSLAPixel.o lodepng.o main.o graph.o dijkstra.o landmark.o bfs.o
 
 
 CXX = clang++
@@ -34,7 +34,7 @@ output_msg: ; $(CLANG_VERSION_MSG)
 $(EXENAME) : output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-main.o : main.cpp cs225/PNG.h cs225/HSLAPixel.h cs225/graph.h
+main.o : main.cpp cs225/PNG.h cs225/HSLAPixel.h cs225/graph.h dijkstra.h 
 	$(CXX) $(CXXFLAGS) main.cpp
 
 PNG.o : cs225/PNG.cpp cs225/PNG.h cs225/HSLAPixel.h cs225/lodepng/lodepng.h
@@ -49,7 +49,7 @@ lodepng.o : cs225/lodepng/lodepng.cpp cs225/lodepng/lodepng.h
 graph.o : cs225/graph.cpp cs225/graph.h cs225/edge.h cs225/random.h
 	$(CXX) $(CXXFLAGS) cs225/graph.cpp
 
-dijkstra.o : dijkstra.cpp dijkstra.h cs225/graph.h include/json.hpp
+dijkstra.o : dijkstra.cpp dijkstra.h cs225/graph.h include/json.hpp 
 	$(CXX) $(CXXFLAGS) dijkstra.cpp
 
 landmark.o : landmark.cpp landmark.h cs225/graph.h cs225/edge.h

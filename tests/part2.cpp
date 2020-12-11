@@ -7,7 +7,7 @@
 
 using namespace std;
 
-TEST_CASE("Landmark to itself", "[weight=1]") {
+TEST_CASE("Landmark to itself", "[part2]") {
   LandMark test("tests_folder/landmark_baby.json", "tests_folder/landmark_baby_target.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("0");
@@ -23,7 +23,7 @@ TEST_CASE("Landmark to itself", "[weight=1]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("Test invalid landmark", "[weight=1]") {
+TEST_CASE("Test invalid landmark", "[part2]") {
   //When the the landmark vertex is not in the graph
   LandMark test("tests_folder/landmark_baby.json", "tests_folder/landmark_baby_target.csv");
   Vertex start = Vertex("0");
@@ -35,7 +35,7 @@ TEST_CASE("Test invalid landmark", "[weight=1]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark baby 4", "[weight=1]") {
+TEST_CASE("landmark baby 4", "[part2]") {
   LandMark test("tests_folder/landmark_baby.json", "tests_folder/landmark_baby_target.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("5");
@@ -50,7 +50,7 @@ TEST_CASE("landmark baby 4", "[weight=1]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark baby 2", "[weight=1]") {
+TEST_CASE("landmark baby 2", "[part2]") {
   LandMark test("tests_folder/dijkstra_baby_test.json", "tests_folder/dijkstra_baby_target.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("2");
@@ -66,7 +66,7 @@ TEST_CASE("landmark baby 2", "[weight=1]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark baby 3", "[weight=1]") {
+TEST_CASE("landmark baby 3", "[part2]") {
   LandMark test("tests_folder/dijkstra_baby_test.json", "tests_folder/dijkstra_baby_target.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("2");
@@ -81,7 +81,7 @@ TEST_CASE("landmark baby 3", "[weight=1]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark test medium", "[weight=1]") {
+TEST_CASE("landmark test medium", "[part2]") {
   //Find the shortest path
   LandMark test("tests_folder/dijkstra_baby_test2.json", "tests_folder/dijkstra_baby_target2.csv");
   Vertex start = Vertex("0");
@@ -94,7 +94,7 @@ TEST_CASE("landmark test medium", "[weight=1]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark test medium 2", "[weight=1]") {
+TEST_CASE("landmark test medium 2", "[part2]") {
   LandMark test("tests_folder/dijkstra_baby_test2.json", "tests_folder/dijkstra_baby_target2.csv");
   Vertex start = to_string(0);
   Vertex end = to_string(5);

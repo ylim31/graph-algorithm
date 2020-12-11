@@ -101,7 +101,7 @@ TEST_CASE("Find shortest path letter graph", "[part1]") {
   REQUIRE(result == expected);
 } 
 
-/**TEST_CASE("Find shortest path large", "[part1]") {
+TEST_CASE("Find shortest path large", "[part1]") {
   //Find the shortest path on our chosen dataset
   Dijkstra test("lastfm_asia_features.json", "lastfm_asia_target.csv");
   Vertex start = to_string(0);
@@ -113,7 +113,7 @@ TEST_CASE("Find shortest path letter graph", "[part1]") {
   expected.push_back(Vertex("1262"));
   expected.push_back(Vertex("2"));
   REQUIRE(result == expected);
-} **/
+} 
 
 
 
