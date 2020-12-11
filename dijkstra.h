@@ -37,6 +37,10 @@ class Dijkstra {
          */ 
         void clear();
 
+        /**
+         * Adds all the edge weights of the path.
+         * @return The total cost to travel that path
+         */ 
         int get_total_cost(vector<Vertex> path);
     private:
         /**
