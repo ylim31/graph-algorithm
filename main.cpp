@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include "cs225/PNG.h"
 #include "cs225/graph.h"
 #include "dijkstra.h"
 #include "landmark.h"
@@ -9,7 +8,7 @@
 
 using namespace std;
 int main(int argc, char* argv[]){
-   
+    argc = 0;
     vector<Vertex> result;
     string start;
     string end;
@@ -29,7 +28,7 @@ int main(int argc, char* argv[]){
         for (unsigned i = 0; i < result.size(); i++) {
             cout << result[i] + " ";
         } 
-        cout << ">";
+        cout << "> ";
         return 0;
     } else if (strcmp(argv[1], "LandMark") == 0) {
         LandMark l_(argv[2], argv[3]);
@@ -53,7 +52,7 @@ int main(int argc, char* argv[]){
         for (unsigned i = 0; i < result.size(); i++) {
             cout << result[i] + " ";
         } 
-        cout << ">";
+        cout << "> ";
         return 0;
     } else if (strcmp(argv[1], "BFS") == 0) {
         BFS b_(argv[2]);
@@ -68,7 +67,7 @@ int main(int argc, char* argv[]){
         for (unsigned i = 0; i < result.size(); i++) {
             cout << result[i] + " ";
         } 
-        cout << ">";
+        cout << "> ";
     }
     return 0;
 }

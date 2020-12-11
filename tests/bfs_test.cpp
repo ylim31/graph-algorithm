@@ -1,8 +1,6 @@
 #include "catch.hpp"
 #include "string"
 #include "iostream"
-#include "../cs225/PNG.h"
-#include "../cs225/HSLAPixel.h"
 #include "../bfs.h"
 #include <vector>
 #include <iostream>
@@ -129,8 +127,8 @@ TEST_CASE(" Test Graph with lastfm", "[part1]") {
 
   int resultNodes = 0;
 
-  for(int i = 0; i < result.size(); i++) {
-    for(int j = 0; j < result[i].size(); j++) {
+  for(unsigned i = 0; i < result.size(); i++) {
+    for(unsigned j = 0; j < result[i].size(); j++) {
       resultNodes++;
     }
   }

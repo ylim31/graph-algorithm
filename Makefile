@@ -1,6 +1,6 @@
 EXENAME = main
 TEST = test
-OBJS = PNG.o HSLAPixel.o lodepng.o main.o graph.o dijkstra.o landmark.o bfs.o
+OBJS = lodepng.o main.o graph.o dijkstra.o landmark.o bfs.o
 
 
 CXX = clang++
@@ -34,14 +34,8 @@ output_msg: ; $(CLANG_VERSION_MSG)
 $(EXENAME) : output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-main.o : main.cpp cs225/PNG.h cs225/HSLAPixel.h cs225/graph.h dijkstra.h 
+main.o : main.cpp cs225/graph.h dijkstra.h 
 	$(CXX) $(CXXFLAGS) main.cpp
-
-PNG.o : cs225/PNG.cpp cs225/PNG.h cs225/HSLAPixel.h cs225/lodepng/lodepng.h
-	$(CXX) $(CXXFLAGS) cs225/PNG.cpp
-
-HSLAPixel.o : cs225/HSLAPixel.cpp cs225/HSLAPixel.h
-	$(CXX) $(CXXFLAGS) cs225/HSLAPixel.cpp
 
 lodepng.o : cs225/lodepng/lodepng.cpp cs225/lodepng/lodepng.h
 	$(CXX) $(CXXFLAGS) cs225/lodepng/lodepng.cpp
@@ -59,8 +53,8 @@ bfs.o : bfs.cpp bfs.h cs225/graph.h cs225/edge.h include/json.hpp
 	$(CXX) $(CXXFLAGS) bfs.cpp
 
 
-$(TEST): output_msg part1.o part2.o bfs_test.o PNG.o HSLAPixel.o lodepng.o cs225/graph.o dijkstra.o bfs.o landmark.o
-	$(LD) part1.o part2.o PNG.o bfs_test.o HSLAPixel.o lodepng.o cs225/graph.o dijkstra.o bfs.o landmark.o $(LDFLAGS) -o test
+$(TEST): output_msg part1.o part2.o bfs_test.o lodepng.o cs225/graph.o dijkstra.o bfs.o landmark.o
+	$(LD) part1.o part2.o bfs_test.o lodepng.o cs225/graph.o dijkstra.o bfs.o landmark.o $(LDFLAGS) -o test
 
 part1.o : tests/part1.cpp tests/catch.hpp cs225/graph.h dijkstra.h
 	$(CXX) $(CXXFLAGS) tests/part1.cpp
@@ -68,7 +62,7 @@ part1.o : tests/part1.cpp tests/catch.hpp cs225/graph.h dijkstra.h
 part2.o : tests/part2.cpp tests/catch.hpp cs225/graph.h landmark.h 
 	$(CXX) $(CXXFLAGS) tests/part2.cpp
 
-bfs_test.o : tests/bfs_test.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h cs225/graph.h bfs.h
+bfs_test.o : tests/bfs_test.cpp tests/catch.hpp cs225/graph.h bfs.h
 	$(CXX) $(CXXFLAGS) tests/bfs_test.cpp
 
 

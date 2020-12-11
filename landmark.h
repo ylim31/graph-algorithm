@@ -22,11 +22,12 @@ class LandMark {
         LandMark(string json_filename, string target_filename);
 
         /**
-         * Loops of the dijkstra algorithm to find the
-         * @param
-         * @
-         * @
-         * @
+         * Loops the Dijkstra algorithm for every permutation of landmark vector to find the path
+         * with shortest weights (cost) to travel.
+         * @param start The start vertex.
+         * @param end The end vertex.
+         * @param landmarks Vector of vertices of the landmarks.
+         * @return Shortest path between start and end that visits all the landmark vertices.
          */ 
         vector<Vertex> find_shortest_path(Vertex start, Vertex end, vector<Vertex> landmarks);
     
