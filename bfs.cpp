@@ -27,7 +27,7 @@ BFS::BFS(string json_filename) : g_(true, false) {
         }
         is_visited_[it.key()] = false;  
     }
-    g_.print();
+    //g_.print();
     cout << "END OF JSON PARSING" << endl;
 }
 
@@ -51,7 +51,7 @@ vector<Vertex> BFS::traversal(Vertex start) {
         ret.push_back(start);
         q.pop();
         vector<Vertex> its_neighbor = g_.getAdjacent(start);
-        for(int i = 0; i < (int) its_neighbor.size(); i++) {
+        for(int i = 0; i < (int)its_neighbor.size(); i++) {
             if (!is_visited_[its_neighbor[i]]) {
                 is_visited_[its_neighbor[i]] = true;
                 q.push(its_neighbor[i]);
@@ -65,7 +65,7 @@ vector<vector<Vertex>> BFS::connectedComp() {
     vector<Vertex> vertices = g_.getVertices();
     vector<vector<Vertex>> result;
 
-    for(int i = 0; i < (int) vertices.size(); i++) {
+    for(int i = 0; i < (int)vertices.size(); i++) {
         if (!is_visited_[vertices[i]]) {
             result.push_back(traversal(vertices[i]));
         }
