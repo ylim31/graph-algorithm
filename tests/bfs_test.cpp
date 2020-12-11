@@ -135,8 +135,13 @@ TEST_CASE(" Test Graph with lastfm", "[weight=10]") {
 
   int resultNodes = 0;
 
+<<<<<<< HEAD
   for(unsigned i = 0; i < result.size(); i++) {
     for(unsigned j = 0; j < result[i].size(); j++) {
+=======
+  for(int i = 0; i < (int)result.size(); i++) {
+    for(int j = 0; j < (int)result[i].size(); j++) {
+>>>>>>> f2b1ca7d02f78691bb68b76c1da778d86ba3b56b
       resultNodes++;
     }
   }
