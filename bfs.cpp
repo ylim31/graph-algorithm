@@ -31,7 +31,7 @@ BFS::BFS(string json_filename) : g_(true, false) {
         is_visited_[it.key()] = false;  
     }
     //g_.print();
-    cout << "END OF JSON PARSING" << endl;
+    //cout << "END OF JSON PARSING" << endl;
 }
 
 
