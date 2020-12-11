@@ -14,6 +14,9 @@ typedef pair<int, Vertex> pair_;
  */
 class Dijkstra {
     public:
+        /**
+         * Standard Constructor.
+         */
         Dijkstra();
 
         /**
