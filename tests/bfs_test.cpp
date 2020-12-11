@@ -132,11 +132,10 @@ TEST_CASE(" Test Graph with lastfm", "[weight=10]") {
   vector<vector<Vertex>> result = test.connectedComp();
 
   int originalNodes = test.numNodes();
-
   int resultNodes = 0;
 
-  for(int i = 0; i < (int)result.size(); i++) {
-    for(int j = 0; j < (int)result[i].size(); j++) {
+  for(unsigned i = 0; i < result.size(); i++) {
+    for(unsigned j = 0; j < result[i].size(); j++) {
       resultNodes++;
     }
   }
