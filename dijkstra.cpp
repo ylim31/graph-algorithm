@@ -57,7 +57,7 @@ Dijkstra::Dijkstra(string json_filename, string target_filename) : g_(true, fals
         }    
     }
     //g_.print();
-    cout << "END OF JSON PARSING" << endl;
+    //cout << "END OF JSON PARSING" << endl;
 }
 
 

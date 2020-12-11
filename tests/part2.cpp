@@ -91,6 +91,12 @@ TEST_CASE("Test landmark medium", "[part2]") {
   landmark_vector.push_back(Vertex("4"));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
+  expected.push_back(Vertex("0"));
+  expected.push_back(Vertex("1"));
+  expected.push_back(Vertex("3"));
+  expected.push_back(Vertex("5"));
+  expected.push_back(Vertex("4"));
+  expected.push_back(Vertex("5"));
   REQUIRE(result == expected);
 }
 
@@ -105,6 +111,14 @@ TEST_CASE("Test landmark medium 2", "[part2]") {
   landmark_vector.push_back(Vertex("4"));
   vector<Vertex> result = test.find_shortest_path(start, end,landmark_vector);
   vector<Vertex> expected;
+  expected.push_back(Vertex("0"));
+  expected.push_back(Vertex("2"));
+  expected.push_back(Vertex("4"));
+  expected.push_back(Vertex("5"));
+  expected.push_back(Vertex("3"));
+  expected.push_back(Vertex("1"));
+  expected.push_back(Vertex("3"));
+  expected.push_back(Vertex("5"));
   REQUIRE(result == expected);
 }
 
