@@ -96,7 +96,6 @@ TEST_CASE(" Test Different Components Graph - Traversal ", "[weight=2]") {
   REQUIRE(result == expected);
 } 
 
-
 TEST_CASE(" Test Different Components Complex Graph - Traversal ", "[weight=2]") {
   BFS test("BFS-tests/bfs_test_component_complex.json");
   vector<vector<Vertex>> result = test.connectedComp();
@@ -121,20 +120,20 @@ TEST_CASE(" Test Different Components Complex Graph - Traversal ", "[weight=2]")
   REQUIRE(result == expected);
 } 
 
-TEST_CASE("Find shortest path large", "[part1]") {
+TEST_CASE(" Test Graph with lastfm", "[part1]") {
   BFS test("lastfm_asia_features.json");
   Vertex start = to_string(0);
   vector<vector<Vertex>> result = test.connectedComp();
-  //vector<Vertex> result = test.traversal(start);
-  vector<vector<Vertex>> expected;
 
-  vector<Vertex> expected1;
-  expected1.push_back(Vertex("0"));
-  expected1.push_back(Vertex("1209"));
-  expected1.push_back(Vertex("1262"));
-  expected1.push_back(Vertex("2"));
+  int originalNodes = test.numNodes();
 
-  expected.push_back(expected1);
+  int resultNodes = 0;
 
-  REQUIRE(result == expected);
+  for(int i = 0; i < result.size(); i++) {
+    for(int j = 0; j < result[i].size(); j++) {
+      resultNodes++;
+    }
+  }
+
+  REQUIRE(resultNodes == originalNodes);
 }

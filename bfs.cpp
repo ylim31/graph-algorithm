@@ -16,6 +16,7 @@ using json = nlohmann::json;
 BFS::BFS() : g_(true, false) {}
 
 BFS::BFS(string json_filename) : g_(true, false) {
+    numVertices = 0;
     ifstream json_(json_filename);
     json j = json::parse(json_);
     for (auto &it : j.items()) {
@@ -25,6 +26,7 @@ BFS::BFS(string json_filename) : g_(true, false) {
             g_.insertEdge(it.key(), each_neighbor);   
             is_visited_[each_neighbor] = false;
         }
+        numVertices++;
         is_visited_[it.key()] = false;  
     }
     //g_.print();
@@ -72,6 +74,10 @@ vector<vector<Vertex>> BFS::connectedComp() {
     }
     
     return result; 
+}
+
+int BFS::numNodes() {
+    return numVertices;
 }
 
 
