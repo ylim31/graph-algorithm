@@ -35,7 +35,7 @@ TEST_CASE("Test invalid landmark", "[part2]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark baby 4", "[part2]") {
+TEST_CASE("Test landmark baby", "[part2]") {
   LandMark test("tests_folder/landmark_baby.json", "tests_folder/landmark_baby_target.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("5");
@@ -50,7 +50,7 @@ TEST_CASE("landmark baby 4", "[part2]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark baby 2", "[part2]") {
+TEST_CASE("Test landmark baby 2", "[part2]") {
   LandMark test("tests_folder/dijkstra_baby_test.json", "tests_folder/dijkstra_baby_target.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("2");
@@ -66,7 +66,7 @@ TEST_CASE("landmark baby 2", "[part2]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark baby 3", "[part2]") {
+TEST_CASE("Test landmark baby 3", "[part2]") {
   LandMark test("tests_folder/dijkstra_baby_test.json", "tests_folder/dijkstra_baby_target.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("2");
@@ -81,8 +81,7 @@ TEST_CASE("landmark baby 3", "[part2]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark test medium", "[part2]") {
-  //Find the shortest path
+TEST_CASE("Test landmark test medium", "[part2]") {
   LandMark test("tests_folder/dijkstra_baby_test2.json", "tests_folder/dijkstra_baby_target2.csv");
   Vertex start = Vertex("0");
   Vertex end = Vertex("5");
@@ -94,7 +93,8 @@ TEST_CASE("landmark test medium", "[part2]") {
   REQUIRE(result == expected);
 }
 
-TEST_CASE("landmark test medium 2", "[part2]") {
+TEST_CASE("Test landmark test medium 2", "[part2]") {
+  //Three landmark vertices. Correctly finds the shortest path that visits all of them.
   LandMark test("tests_folder/dijkstra_baby_test2.json", "tests_folder/dijkstra_baby_target2.csv");
   Vertex start = to_string(0);
   Vertex end = to_string(5);
