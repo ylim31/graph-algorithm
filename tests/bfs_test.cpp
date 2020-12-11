@@ -10,6 +10,14 @@
 
 using namespace std;
 
+TEST_CASE(" Test Simple Graph - Invalid Start", "[weight=1]") {
+  BFS test("BFS-tests/bfs_test_cycle.json");
+  Vertex start = to_string(7);
+  vector<Vertex> result = test.traversal(start);
+
+  REQUIRE(result == vector<Vertex>());
+}
+
 TEST_CASE(" Test Simple Graph - Beginning", "[weight=1]") {
   BFS test("BFS-tests/bfs_test_cycle.json");
   Vertex start = to_string(2);
@@ -120,7 +128,7 @@ TEST_CASE(" Test Different Components Complex Graph - Traversal ", "[weight=2]")
   REQUIRE(result == expected);
 } 
 
-TEST_CASE(" Test Graph with lastfm", "[part1]") {
+TEST_CASE(" Test Graph with lastfm", "[weight=10]") {
   BFS test("lastfm_asia_features.json");
   Vertex start = to_string(0);
   vector<vector<Vertex>> result = test.connectedComp();
@@ -129,11 +137,12 @@ TEST_CASE(" Test Graph with lastfm", "[part1]") {
 
   int resultNodes = 0;
 
-  for(int i = 0; i < result.size(); i++) {
-    for(int j = 0; j < result[i].size(); j++) {
+  for(int i = 0; i < (int)result.size(); i++) {
+    for(int j = 0; j < (int)result[i].size(); j++) {
       resultNodes++;
     }
   }
 
   REQUIRE(resultNodes == originalNodes);
 }
+
