@@ -29,7 +29,7 @@
 ####  After completing the complete implimentation of Dijkstra algorithm, we created a baby csv file that copies an example from a video. We will use this as our exemplar and once we pass all necessary cases on the baby, we will start writing tests for the actual dataset. 
 #### In line with the feeback we got from various posts on Piazza and the Discord server, ee then made a smaller representation of our dataset to test our BFS implimentation and to check our progress.
 #### For Dijkstra I realized that the Dijkstra was running very slow because I wasn't using priority_queue. Fixed
-#### After our midpoint check-in with Brad, we updated our BFS implimentation to make it more extendible i.e. so that it can work for Components as well. We then added tests for our BFS implimentation to make sure it is air-tight.
+#### For BFS, we updated the implimentation after our midpoint check-in with Brad to make it more extendible i.e. so that it can work for Components as well. We then added tests for our BFS implimentation to make sure it is air-tight.
 #### For LandMark, we thought of looping through Dijkstra to find the shortest path from landmark vertices.
 ---
 #### WEEK 4 (FINAL)
